@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Little Reminder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #020005;
+            font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: crosshair;
+            user-select: none;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Floating Blurred Heart Emojis Container */
+        .emoji-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .blurred-emoji {
+            position: absolute;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            filter: blur(4px);
+            opacity: 0.35;
+            animation: floatUp 12s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.45;
+            }
+            80% {
+                opacity: 0.45;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Fully Dynamic Roaming Admiration Sentences */
+        .roaming-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .roaming-text {
+            position: absolute;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.75rem, 1.8vw, 1.1rem);
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255, 182, 193, 0.45);
+            text-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
+            white-space: nowrap;
+            animation: floatRoam 20s linear infinite;
+        }
+
+        @keyframes floatRoam {
+            0% {
+                transform: translate(var(--start-x), 105vh) rotate(var(--rot-start));
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.6;
+            }
+            85% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate(var(--end-x), -15vh) rotate(var(--rot-end));
+                opacity: 0;
+            }
+        }
+
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            padding: 35px 60px;
+            background: rgba(255, 255, 255, 0.025);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 42, 109, 0.25);
+            border-radius: 24px;
+            box-shadow: 
+                0 0 30px rgba(255, 42, 109, 0.2),
+                inset 0 0 20px rgba(255, 42, 109, 0.1);
+            text-align: center;
+            pointer-events: none;
+            max-width: 90vw;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .word-display {
+            font-size: clamp(2rem, 6.5vw, 4.8rem);
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 
+                0 0 12px rgba(255, 42, 109, 0.9),
+                0 0 30px rgba(255, 42, 109, 0.7),
+                0 0 60px rgba(255, 42, 109, 0.4);
+            opacity: 0;
+            transform: scale(0.85);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .word-display.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .vignette {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 25%, #020005 90%);
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .hint-text {
+            position: absolute;
+            bottom: 25px;
+            z-index: 10;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: sans-serif;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vignette"></div>
+    <div class="emoji-container" id="emojiContainer"></div>
+    <div class="roaming-container" id="roamingContainer"></div>
+
+    <canvas id="canvas"></canvas>
+    
+    <div class="glass-card">
+        <h1 class="word-display" id="wordText"></h1>
+    </div>
+
+    <div class="hint-text" id="hintText">Drawing Heart Frame...</div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const wordText = document.getElementById('wordText');
+        const hintText = document.getElementById('hintText');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const words = [
+            "I", "have", "a", "little", "reminder", "for", "you",
+            "You", "are", "so", "special",
+            "You", "deserve", "a", "whole", "world"
+        ];
+
+        const admirationSentences = [
+            "Most Beautiful", "My Favorite Person", "Pure Magic",
+            "Always You", "Truly Unreplaceable", "One In A Million",
+            "You Light Up Everything", "Simply Perfect", "Forever Special",
+            "A True Blessing"
+        ];
+
+        let currentWordIndex = 0;
+        let time = 0;
+        
+        // Heart build-up state
+        let activeHeartCount = 0;
+        let heartComplete = false;
+
+        const wandParticles = [];
+        const fluidParticles = [];
+        const heartParticles = [];
+        const shockwaves = [];
+
+        let mouse = { x: -1000, y: -1000, px: -1000, py: -1000, vx: 0, vy: 0 };
+
+        function getHeartPoint(t, scale) {
+            const x = scale * 16 * Math.pow(Math.sin(t), 3);
+            const y = -scale * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+            return { x, y };
+        }
+
+        // Generate Blurred Heart Emojis (Active from start)
+        const emojiContainer = document.getElementById('emojiContainer');
+        const emojis = ['💖', '💕', '💗', '💓', '❤️', '💘'];
+        for (let i = 0; i < 20; i++) {
+            const span = document.createElement('span');
+            span.className = 'blurred-emoji';
+            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.left = `${Math.random() * 92 + 4}%`;
+            span.style.animationDelay = `${Math.random() * 10}s`;
+            span.style.animationDuration = `${Math.random() * 6 + 10}s`;
+            emojiContainer.appendChild(span);
+        }
+
+        // Generate Roaming Admiration Phrases (Roaming whole screen from start)
+        const roamingContainer = document.getElementById('roamingContainer');
+        admirationSentences.forEach((phrase, idx) => {
+            const span = document.createElement('span');
+            span.className = 'roaming-text';
+            span.textContent = phrase;
+            
+            // Randomize X trajectory and rotation angles for organic roaming
+            const startX = `${Math.random() * 80 + 5}vw`;
+            const endX = `${Math.random() * 80 + 5}vw`;
+            const rotStart = `${(Math.random() - 0.5) * 12}deg`;
+            const rotEnd = `${(Math.random() - 0.5) * 12}deg`;
+
+            span.style.setProperty('--start-x', startX);
+            span.style.setProperty('--end-x', endX);
+            span.style.setProperty('--rot-start', rotStart);
+            span.style.setProperty('--rot-end', rotEnd);
+
+            span.style.left = `0px`;
+            span.style.animationDelay = `${idx * 1.8}s`;
+            span.style.animationDuration = `${Math.random() * 6 + 18}s`;
+            roamingContainer.appendChild(span);
+        });
+
+        // 1. Interactive Cursor Wand Particle
+        class WandParticle {
+            constructor(x, y, vx, vy) {
+                this.x = x;
+                this.y = y;
+                this.vx = vx * 0.3 + (Math.random() - 0.5) * 2;
+                this.vy = vy * 0.3 + (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 6 + 3;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+                this.color = Math.random() > 0.3 ? '#ff2a6d' : '#ffffff';
+                this.rotation = Math.random() * Math.PI;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.96;
+                this.vy *= 0.96;
+                this.alpha -= this.decay;
+                this.rotation += 0.05;
+            }
+
+            draw() {
+                if (this.alpha <= 0) return;
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = this.color;
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        // 2. Ambient Fluid Particle
+        class FluidParticle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 4 + 2;
+                this.baseAlpha = Math.random() * 0.5 + 0.2;
+                this.color = Math.random() > 0.4 ? '#ff2a6d' : '#ffffff';
+                this.vx = 0;
+                this.vy = 0;
+            }
+
+            update() {
+                const angle = (Math.cos(this.x * 0.005) + Math.sin(this.y * 0.005) + time * 0.5) * Math.PI;
+                this.vx += Math.cos(angle) * 0.1;
+                this.vy += Math.sin(angle) * 0.1;
+
+                const dx = this.x - mouse.x;
+                const dy = this.y - mouse.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 120) {
+                    const force = (120 - dist) / 120;
+                    this.vx += (dx / dist) * force * 3;
+                    this.vy += (dy / dist) * force * 3;
+                }
+
+                this.vx *= 0.94;
+                this.vy *= 0.94;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(45 * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.baseAlpha;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        // 3. Central Heart Particle
+        class HeartFrameParticle {
+            constructor(t) {
+                this.t = t;
+                this.size = Math.random() * 4 + 2;
+                this.color = Math.random() > 0.25 ? '#ff2a6d' : '#ffffff';
+            }
+
+            draw() {
+                const scale = (Math.min(width, height) / 38) * (1 + Math.sin(time * 2) * 0.04);
+                const pt = getHeartPoint(this.t, scale);
+
+                const x = width / 2 + pt.x;
+                const y = height / 2 + pt.y;
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(45 * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = 0.85;
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = this.color;
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        // 4. Ripple Shockwave
+        class Ripple {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.r = 5;
+                this.maxR = Math.max(width, height) * 0.55;
+                this.alpha = 1;
+            }
+
+            update() {
+                this.r += 10;
+                this.alpha = 1 - (this.r / this.maxR);
+            }
+
+            draw() {
+                if (this.alpha <= 0) return;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(255, 42, 109, ${this.alpha * 0.6})`;
+                ctx.lineWidth = 2;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#ff2a6d';
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < 200; i++) {
+            fluidParticles.push(new FluidParticle());
+        }
+
+        const numHeartPts = 320;
+        for (let i = 0; i < numHeartPts; i++) {
+            const t = (i / numHeartPts) * Math.PI * 2;
+            heartParticles.push(new HeartFrameParticle(t));
+        }
+
+        function triggerNextWord() {
+            if (!heartComplete) return;
+
+            wordText.classList.remove('active');
+
+            setTimeout(() => {
+                wordText.textContent = words[currentWordIndex];
+                wordText.classList.add('active');
+                
+                shockwaves.push(new Ripple(width / 2, height / 2));
+
+                currentWordIndex = (currentWordIndex + 1) % words.length;
+            }, 350);
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(2, 0, 5, 0.2)';
+            ctx.fillRect(0, 0, width, height);
+
+            time += 0.02;
+
+            // Step 1: Draw Heart Step-by-Step
+            if (!heartComplete) {
+                activeHeartCount += 3; // Controls heart drawing speed
+                if (activeHeartCount >= numHeartPts) {
+                    activeHeartCount = numHeartPts;
+                    heartComplete = true;
+                    hintText.textContent = "Move cursor to draw love trails • Click for fluid ripples";
+                    
+                    // Main words only start AFTER heart completes
+                    triggerNextWord();
+                    setInterval(triggerNextWord, 1700);
+                }
+            }
+
+            // Render shockwaves
+            for (let i = shockwaves.length - 1; i >= 0; i--) {
+                shockwaves[i].update();
+                shockwaves[i].draw();
+                if (shockwaves[i].alpha <= 0) shockwaves.splice(i, 1);
+            }
+
+            // Render active heart particles step-by-step
+            for (let i = 0; i < activeHeartCount; i++) {
+                heartParticles[i].draw();
+            }
+
+            // Render fluid ambient particles
+            fluidParticles.forEach(fp => {
+                fp.update();
+                fp.draw();
+            });
+
+            // Render cursor wand particles
+            for (let i = wandParticles.length - 1; i >= 0; i--) {
+                wandParticles[i].update();
+                wandParticles[i].draw();
+                if (wandParticles[i].alpha <= 0) wandParticles.splice(i, 1);
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Pointer Handlers
+        function handlePointerMove(x, y) {
+            if (mouse.px !== -1000) {
+                mouse.vx = x - mouse.px;
+                mouse.vy = y - mouse.py;
+                
+                const dist = Math.hypot(mouse.vx, mouse.vy);
+                const steps = Math.min(Math.floor(dist / 4), 8);
+                for (let i = 0; i < steps; i++) {
+                    const px = mouse.px + (mouse.vx / steps) * i;
+                    const py = mouse.py + (mouse.vy / steps) * i;
+                    wandParticles.push(new WandParticle(px, py, mouse.vx, mouse.vy));
+                }
+            }
+            mouse.x = x;
+            mouse.y = y;
+            mouse.px = x;
+            mouse.py = y;
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            handlePointerMove(e.clientX, e.clientY);
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            shockwaves.push(new Ripple(e.clientX, e.clientY));
+            for (let i = 0; i < 25; i++) {
+                wandParticles.push(new WandParticle(e.clientX, e.clientY, (Math.random() - 0.5) * 15, (Math.random() - 0.5) * 15));
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        animate();
+    </script>
+</body>
+</html>

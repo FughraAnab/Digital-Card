@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bestie Appreciation Dossier</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --paper:#eee5d3;
+    --paper-light:#f8f3e8;
+    --ink:#28251f;
+    --muted:#71695d;
+    --line:#bdb09a;
+    --red:#9d3029;
+    --green:#556b4c;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Special Elite",monospace;
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   PAPER TEXTURE
+========================================================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1000;
+    opacity:.13;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 4px,
+            rgba(50,40,20,.08) 5px
+        );
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+    position:relative;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    min-height:75px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px 35px;
+
+    z-index:900;
+
+    background:rgba(238,229,211,.94);
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid var(--line);
+}
+
+.logo{
+    font-size:13px;
+    letter-spacing:3px;
+}
+
+.nav-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.nav-btn{
+    border:0;
+    background:transparent;
+
+    padding:9px 12px;
+
+    font-family:inherit;
+    font-size:10px;
+    letter-spacing:1px;
+
+    color:var(--muted);
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.nav-btn:hover{
+    color:var(--ink);
+}
+
+.nav-btn.active{
+    color:var(--red);
+}
+
+
+/* =========================================================
+   PAGES
+========================================================= */
+
+.page{
+    position:absolute;
+
+    top:75px;
+    left:0;
+
+    width:100%;
+    height:calc(100vh - 75px);
+
+    overflow-y:auto;
+
+    padding:60px 25px 100px;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateX(60px);
+
+    transition:
+        opacity .45s ease,
+        transform .45s ease,
+        visibility .45s;
+}
+
+.page.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(0);
+}
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+.container{
+    width:min(1100px,100%);
+    margin:auto;
+}
+
+.page-heading{
+    text-align:center;
+    max-width:750px;
+    margin:0 auto 60px;
+}
+
+.page-heading .case{
+    font-size:10px;
+    letter-spacing:4px;
+    color:var(--red);
+    margin-bottom:15px;
+}
+
+.page-heading h1{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(48px,8vw,82px);
+    line-height:.95;
+    margin-bottom:20px;
+}
+
+.page-heading p{
+    color:var(--muted);
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.main-btn{
+    border:0;
+
+    background:var(--ink);
+    color:white;
+
+    padding:16px 25px;
+
+    font-family:inherit;
+    font-size:11px;
+    letter-spacing:1px;
+
+    cursor:pointer;
+
+    display:inline-block;
+
+    transition:.3s;
+}
+
+.main-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:7px 7px 0 var(--red);
+}
+
+
+/* =========================================================
+   PAGE 1 — CLASSIFIED FILE
+========================================================= */
+
+.hero-page{
+    display:flex;
+    align-items:center;
+}
+
+.hero-container{
+    width:min(900px,100%);
+    margin:auto;
+    text-align:center;
+    position:relative;
+}
+
+.case-number{
+    position:absolute;
+
+    top:-40px;
+    left:0;
+
+    font-size:10px;
+    letter-spacing:3px;
+
+    color:var(--muted);
+}
+
+.classified{
+    position:absolute;
+
+    right:10px;
+    top:-60px;
+
+    border:3px solid var(--red);
+    color:var(--red);
+
+    padding:10px 20px;
+
+    font-size:18px;
+
+    transform:rotate(10deg);
+
+    animation:stamp .8s cubic-bezier(.17,.67,.27,1.3);
+}
+
+@keyframes stamp{
+
+    0%{
+        opacity:0;
+        transform:scale(2.2) rotate(10deg);
+    }
+
+    100%{
+        opacity:.85;
+        transform:scale(1) rotate(10deg);
+    }
+}
+
+.file{
+    border:1px solid var(--line);
+
+    padding:70px 45px;
+
+    background:rgba(248,243,232,.55);
+
+    box-shadow:
+        15px 15px 0 rgba(50,40,20,.04),
+        0 20px 60px rgba(50,40,20,.06);
+}
+
+.top-secret{
+    display:inline-block;
+
+    padding:7px 20px;
+
+    border-top:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+
+    font-size:10px;
+    letter-spacing:3px;
+
+    margin-bottom:30px;
+}
+
+.file h1{
+    font-family:"Playfair Display",serif;
+
+    font-size:clamp(55px,9vw,100px);
+
+    line-height:.88;
+
+    margin-bottom:30px;
+}
+
+.file h1 span{
+    color:var(--red);
+}
+
+.file-description{
+    max-width:620px;
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:13px;
+    line-height:1.9;
+}
+
+.status{
+    margin:30px 0;
+
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.status-dot{
+    display:inline-block;
+
+    width:8px;
+    height:8px;
+
+    background:var(--green);
+
+    border-radius:50%;
+
+    margin-right:8px;
+
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        opacity:.3;
+    }
+}
+
+.warning{
+    margin-top:25px;
+
+    font-size:9px;
+    color:var(--muted);
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   PAGE 2 — EVIDENCE
+========================================================= */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+
+    margin-bottom:80px;
+}
+
+.stat{
+    padding:30px 15px;
+
+    text-align:center;
+
+    border-right:1px solid var(--line);
+}
+
+.stat:last-child{
+    border-right:0;
+}
+
+.stat label{
+    font-size:9px;
+    letter-spacing:2px;
+
+    color:var(--muted);
+}
+
+.stat strong{
+    display:block;
+
+    font-family:"Playfair Display",serif;
+
+    font-size:45px;
+
+    margin:8px 0;
+}
+
+.stat small{
+    font-size:8px;
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.section-label{
+    font-size:10px;
+
+    color:var(--red);
+
+    letter-spacing:3px;
+
+    margin-bottom:10px;
+}
+
+.section-title{
+    font-family:"Playfair Display",serif;
+
+    font-size:42px;
+
+    margin-bottom:30px;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:25px;
+}
+
+.photo-card{
+    background:var(--paper-light);
+
+    padding:12px 12px 20px;
+
+    box-shadow:
+        5px 10px 25px rgba(40,30,15,.08);
+
+    transition:.4s;
+}
+
+.photo-card:nth-child(odd){
+    transform:rotate(-2deg);
+}
+
+.photo-card:nth-child(even){
+    transform:rotate(2deg);
+}
+
+.photo-card:hover{
+    transform:rotate(0) translateY(-10px);
+}
+
+.photo{
+    aspect-ratio:4/5;
+
+    background:#d8ccb5;
+
+    overflow:hidden;
+}
+
+.photo img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.4s;
+}
+
+.photo-card:hover img{
+    transform:scale(1.05);
+}
+
+.photo-card p{
+    margin-top:15px;
+
+    font-size:11px;
+}
+
+.photo-card small{
+    display:block;
+
+    margin-top:5px;
+
+    color:var(--muted);
+
+    font-size:8px;
+}
+
+
+/* =========================================================
+   EVIDENCE NOTE
+========================================================= */
+
+.evidence-note{
+    margin-top:60px;
+
+    padding:35px;
+
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+
+    display:grid;
+
+    grid-template-columns:1fr 280px;
+
+    gap:50px;
+}
+
+.evidence-note h2{
+    font-family:"Playfair Display",serif;
+
+    font-size:35px;
+
+    margin-bottom:15px;
+}
+
+.evidence-note p{
+    color:var(--muted);
+
+    line-height:1.8;
+}
+
+.verdict{
+    border:2px solid var(--red);
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    transform:rotate(-2deg);
+}
+
+.verdict span{
+    font-size:8px;
+    letter-spacing:2px;
+}
+
+.verdict strong{
+    display:block;
+
+    color:var(--red);
+
+    font-size:20px;
+
+    margin:15px 0;
+}
+
+.next{
+    text-align:center;
+
+    margin-top:70px;
+}
+
+
+/* =========================================================
+   PAGE 3 — PRAISE
+========================================================= */
+
+.praise-box{
+    width:min(900px,100%);
+
+    margin:auto;
+
+    border:1px solid var(--ink);
+
+    padding:25px;
+
+    background:rgba(248,243,232,.4);
+}
+
+.praise-header{
+    display:flex;
+
+    justify-content:space-between;
+
+    padding-bottom:15px;
+
+    border-bottom:1px solid var(--line);
+
+    font-size:9px;
+
+    letter-spacing:2px;
+}
+
+.signal{
+    display:flex;
+
+    align-items:end;
+
+    gap:3px;
+}
+
+.signal i{
+    width:4px;
+    height:8px;
+
+    background:var(--ink);
+}
+
+.signal i:nth-child(2){
+    height:14px;
+}
+
+.signal i:nth-child(3){
+    height:20px;
+}
+
+.signal i:nth-child(4){
+    height:12px;
+}
+
+.signal i:nth-child(5){
+    height:7px;
+}
+
+.praise-content{
+    display:grid;
+
+    grid-template-columns:260px 1fr;
+
+    gap:60px;
+
+    align-items:center;
+
+    padding:60px 30px;
+}
+
+.record{
+    width:230px;
+    height:230px;
+
+    border-radius:50%;
+
+    background:
+        repeating-radial-gradient(
+            circle,
+            #29251f 0px,
+            #29251f 2px,
+            #3b3730 3px,
+            #29251f 5px
+        );
+
+    display:grid;
+
+    place-items:center;
+
+    box-shadow:
+        10px 15px 30px rgba(0,0,0,.15);
+
+    animation:spin 6s linear infinite;
+
+    animation-play-state:paused;
+}
+
+.record.playing{
+    animation-play-state:running;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.record-center{
+    width:75px;
+    height:75px;
+
+    border-radius:50%;
+
+    background:var(--red);
+
+    color:white;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+}
+
+.shairi p{
+    color:var(--muted);
+
+    line-height:1.9;
+
+    margin-bottom:20px;
+}
+
+.shairi .quote{
+    font-family:"Playfair Display",serif;
+
+    font-size:21px;
+
+    color:var(--ink);
+}
+
+.play-btn{
+    display:block;
+
+    margin:auto;
+
+    padding:17px 30px;
+
+    background:var(--ink);
+
+    color:white;
+
+    border:0;
+
+    font-family:inherit;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+}
+
+.audio-status{
+    text-align:center;
+
+    margin-top:15px;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    letter-spacing:2px;
+}
+
+.complaints{
+    width:min(900px,100%);
+
+    margin:80px auto 0;
+}
+
+.complaints h2{
+    font-family:"Playfair Display",serif;
+
+    font-size:40px;
+
+    margin-bottom:30px;
+}
+
+.complaint-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    border-top:1px solid var(--line);
+}
+
+.complaint{
+    padding:25px;
+
+    border-bottom:1px solid var(--line);
+}
+
+.complaint span{
+    color:var(--red);
+
+    font-size:9px;
+}
+
+.complaint p{
+    margin-top:8px;
+
+    color:var(--muted);
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   PAGE 4 — CERTIFICATE
+========================================================= */
+
+.certificate-wrapper{
+    width:min(900px,100%);
+
+    margin:auto;
+
+    padding:15px;
+
+    background:var(--paper-light);
+
+    box-shadow:
+        15px 20px 50px rgba(40,30,15,.12);
+}
+
+.certificate{
+    border:2px solid var(--ink);
+
+    outline:1px solid var(--ink);
+
+    outline-offset:-10px;
+
+    padding:70px 45px;
+
+    text-align:center;
+}
+
+.certificate-top{
+    font-size:9px;
+
+    letter-spacing:5px;
+
+    margin-bottom:50px;
+}
+
+.certificate-small{
+    color:var(--muted);
+
+    font-size:9px;
+
+    letter-spacing:3px;
+}
+
+.certificate h2{
+    font-family:"Playfair Display",serif;
+
+    font-size:clamp(45px,7vw,75px);
+
+    line-height:.9;
+
+    margin:20px 0 30px;
+}
+
+.certificate-description{
+    max-width:600px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    font-size:12px;
+}
+
+.seal{
+    width:105px;
+    height:105px;
+
+    margin:40px auto;
+
+    border:2px solid var(--red);
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-content:center;
+
+    color:var(--red);
+
+    transform:rotate(-8deg);
+
+    font-size:11px;
+}
+
+.seal small{
+    font-size:7px;
+
+    margin-top:5px;
+}
+
+.signatures{
+    max-width:600px;
+
+    margin:50px auto 0;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:60px;
+}
+
+.signature-line{
+    border-bottom:1px solid var(--ink);
+
+    margin-bottom:8px;
+}
+
+.signatures small{
+    font-size:7px;
+
+    color:var(--muted);
+}
+
+.certificate-number{
+    margin-top:45px;
+
+    color:var(--muted);
+
+    font-size:7px;
+
+    letter-spacing:2px;
+}
+
+.certificate-actions{
+    text-align:center;
+
+    margin-top:35px;
+}
+
+.final{
+    text-align:center;
+
+    margin:80px 0 20px;
+}
+
+.final small{
+    color:var(--red);
+
+    letter-spacing:4px;
+}
+
+.final h2{
+    font-family:"Playfair Display",serif;
+
+    font-size:50px;
+
+    margin-top:10px;
+}
+
+.final h2 span{
+    color:var(--red);
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    bottom:25px;
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        translateY(100px);
+
+    background:var(--ink);
+
+    color:white;
+
+    padding:13px 20px;
+
+    font-size:9px;
+
+    z-index:2000;
+
+    opacity:0;
+
+    transition:.4s;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:800px){
+
+    .nav{
+        min-height:90px;
+
+        padding:13px 15px;
+
+        flex-direction:column;
+
+        gap:8px;
+    }
+
+    .logo{
+        font-size:11px;
+    }
+
+    .nav-buttons{
+        gap:0;
+    }
+
+    .nav-btn{
+        padding:6px 8px;
+
+        font-size:8px;
+    }
+
+    .page{
+        top:90px;
+
+        height:calc(100vh - 90px);
+
+        padding:45px 15px 80px;
+    }
+
+    .case-number{
+        position:static;
+
+        margin-bottom:20px;
+    }
+
+    .classified{
+        display:none;
+    }
+
+    .file{
+        padding:50px 20px;
+    }
+
+    .file h1{
+        font-size:53px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stat{
+        border-bottom:1px solid var(--line);
+    }
+
+    .stat:nth-child(2){
+        border-right:0;
+    }
+
+    .gallery{
+        grid-template-columns:1fr 1fr;
+
+        gap:15px;
+    }
+
+    .evidence-note{
+        grid-template-columns:1fr;
+    }
+
+    .praise-content{
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+        justify-items:center;
+
+        padding:45px 10px;
+    }
+
+    .record{
+        width:190px;
+        height:190px;
+    }
+
+    .complaint-grid{
+        grid-template-columns:1fr;
+    }
+
+    .certificate{
+        padding:55px 20px;
+    }
+
+    .signatures{
+        grid-template-columns:1fr;
+
+        gap:30px;
+    }
+}
+
+
+@media(max-width:500px){
+
+    .nav{
+        min-height:100px;
+    }
+
+    .page{
+        top:100px;
+
+        height:calc(100vh - 100px);
+    }
+
+    .nav-buttons{
+        flex-wrap:wrap;
+
+        justify-content:center;
+    }
+
+    .page-heading h1{
+        font-size:48px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .stat{
+        border-right:0 !important;
+
+        border-bottom:1px solid var(--line) !important;
+    }
+
+    .stat:last-child{
+        border-bottom:0 !important;
+    }
+
+    .gallery{
+        grid-template-columns:1fr;
+
+        max-width:330px;
+
+        margin:auto;
+    }
+
+    .file h1{
+        font-size:45px;
+    }
+
+    .certificate h2{
+        font-size:43px;
+    }
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print{
+
+    body{
+        background:white;
+
+        overflow:visible;
+    }
+
+    body::before,
+    .nav,
+    .page:not(#certificatePage),
+    .certificate-actions,
+    .final,
+    .toast{
+        display:none !important;
+    }
+
+    #certificatePage{
+        position:static !important;
+
+        display:block !important;
+
+        opacity:1 !important;
+
+        visibility:visible !important;
+
+        width:100%;
+
+        height:auto;
+
+        padding:0;
+    }
+
+    .certificate-wrapper{
+        width:100%;
+
+        box-shadow:none;
+
+        padding:10px;
+    }
+
+    .certificate{
+        min-height:95vh;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="nav">
+
+    <div class="logo">
+        BFF // CLASSIFIED
+    </div>
+
+    <div class="nav-buttons">
+
+        <button
+            class="nav-btn active"
+            data-page="homePage"
+        >
+            FILE
+        </button>
+
+        <button
+            class="nav-btn"
+            data-page="evidencePage"
+        >
+            EVIDENCE
+        </button>
+
+        <button
+            class="nav-btn"
+            data-page="praisePage"
+        >
+            PRAISE
+        </button>
+
+        <button
+            class="nav-btn"
+            data-page="certificatePage"
+        >
+            CERTIFICATE
+        </button>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     PAGE 1 — CLASSIFIED FILE
+===================================================== -->
+
+<section
+    class="page hero-page active"
+    id="homePage"
+>
+
+    <div class="hero-container">
+
+        <div class="case-number">
+            CASE NO. BFF-001
+        </div>
+
+        <div class="classified">
+            CLASSIFIED
+        </div>
+
+        <div class="file">
+
+            <div class="top-secret">
+                TOP SECRET // BESTIE DIVISION
+            </div>
+
+            <div class="page-heading" style="margin-bottom:25px;">
+
+                <div class="case">
+                    OFFICIAL APPRECIATION DOSSIER
+                </div>
+
+            </div>
+
+            <h1>
+                World's<br>
+                <span>Best Bestie</span>
+            </h1>
+
+            <p class="file-description">
+
+                After extensive investigation, countless conversations,
+                questionable decisions and an unreasonable amount of laughter,
+                the evidence is conclusive.
+
+                <br><br>
+
+                This individual is officially classified as:
+                <strong>IRREPLACEABLE.</strong>
+
+            </p>
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                CASE STATUS:
+                <strong>BESTIE CONFIRMED</strong>
+
+            </div>
+
+            <button
+                class="main-btn"
+                onclick="goTo('evidencePage')"
+            >
+                OPEN DOSSIER →
+            </button>
+
+            <p class="warning">
+                WARNING: Excessive friendship may cause uncontrollable laughter.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PAGE 2 — EVIDENCE
+===================================================== -->
+
+<section
+    class="page"
+    id="evidencePage"
+>
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <div class="case">
+                CASE FILE // 02
+            </div>
+
+            <h1>
+                The Evidence
+            </h1>
+
+            <p>
+                Photographic proof that this friendship is
+                completely ridiculous and absolutely irreplaceable.
+            </p>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <label>
+                    LOYALTY
+                </label>
+
+                <strong>
+                    100%
+                </strong>
+
+                <small>
+                    NO QUESTIONS ASKED
+                </small>
+
+            </div>
+
+
+            <div class="stat">
+
+                <label>
+                    ROASTS
+                </label>
+
+                <strong>
+                    ∞
+                </strong>
+
+                <small>
+                    UNLIMITED SUPPLY
+                </small>
+
+            </div>
+
+
+            <div class="stat">
+
+                <label>
+                    SUPPORT
+                </label>
+
+                <strong>
+                    24/7
+                </strong>
+
+                <small>
+                    EMOTIONAL DEPARTMENT
+                </small>
+
+            </div>
+
+
+            <div class="stat">
+
+                <label>
+                    CHAOS
+                </label>
+
+                <strong>
+                    MAX
+                </strong>
+
+                <small>
+                    HIGHLY CLASSIFIED
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PHOTO EVIDENCE -->
+
+        <div class="section-label">
+            EXHIBIT A
+        </div>
+
+        <h2 class="section-title">
+            Photographic Evidence
+        </h2>
+
+
+        <div class="gallery">
+
+
+            <!-- =================================================
+                 IMAGE 1
+                 CHANGE THIS SRC
+            ================================================== -->
+
+            <div class="photo-card">
+
+                <div class="photo">
+
+                    <img
+                        src="./Images/❤️ (2).jpg"
+                        alt="Bestie memory 1"
+                    >
+
+                </div>
+
+                <p>
+                    Evidence #001
+                </p>
+
+                <small>
+                    Suspiciously happy.
+                </small>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 IMAGE 2
+                 CHANGE THIS SRC
+            ================================================== -->
+
+            <div class="photo-card">
+
+                <div class="photo">
+
+                    <img
+                        src="./Images/872220652809143495.jpg"
+                        alt="Bestie memory 2"
+                    >
+
+                </div>
+
+                <p>
+                    Evidence #002
+                </p>
+
+                <small>
+                    Zero responsible decisions.
+                </small>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 IMAGE 3
+                 CHANGE THIS SRC
+            ================================================== -->
+
+            <div class="photo-card">
+
+                <div class="photo">
+
+                    <img
+                        src="./Images/Bestie Photo Ideas That Belong on Your Pinterest Board ✨.jpg"
+                        alt="Bestie memory 3"
+                    >
+
+                </div>
+
+                <p>
+                    Evidence #003
+                </p>
+
+                <small>
+                    Friendship levels: suspicious.
+                </small>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 IMAGE 4
+                 CHANGE THIS SRC
+            ================================================== -->
+
+            <div class="photo-card">
+
+                <div class="photo">
+
+                    <img
+                        src="./Images/1117596463790990358.jpg"
+                        alt="Bestie memory 4"
+                    >
+
+                </div>
+
+                <p>
+                    Evidence #004
+                </p>
+
+                <small>
+                    Still no regrets.
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- INVESTIGATION -->
+
+        <div class="evidence-note">
+
+            <div>
+
+                <div class="section-label">
+                    INVESTIGATOR'S NOTE
+                </div>
+
+                <h2>
+                    The evidence is overwhelming.
+                </h2>
+
+                <p>
+
+                    Subject has successfully survived every embarrassing
+                    phase, every unnecessary rant, every random plan and
+                    every "I have something to tell you" emergency.
+
+                    <br><br>
+
+                    Somehow, this person continues to remain
+                    one of the most important humans in the investigation.
+
+                </p>
+
+            </div>
+
+
+            <div class="verdict">
+
+                <span>
+                    FINAL VERDICT
+                </span>
+
+                <strong>
+                    KEEP THIS BESTIE.
+                </strong>
+
+                <small>
+                    NO EXPIRATION DATE.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="next">
+
+            <button
+                class="main-btn"
+                onclick="goTo('praisePage')"
+            >
+                ACTIVATE PRAISE MODE →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PAGE 3 — PRAISE MODE
+===================================================== -->
+
+<section
+    class="page"
+    id="praisePage"
+>
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <div class="case">
+                CASE FILE // 03
+            </div>
+
+            <h1>
+                Praise Mode
+            </h1>
+
+            <p>
+                Warning: excessive appreciation detected.
+            </p>
+
+        </div>
+
+
+        <div class="praise-box">
+
+            <div class="praise-header">
+
+                <span>
+                    AUDIO TRANSMISSION
+                </span>
+
+                <div class="signal">
+
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+
+                </div>
+
+            </div>
+
+
+            <div class="praise-content">
+
+
+                <!-- RECORD -->
+
+                <div
+                    class="record"
+                    id="record"
+                >
+
+                    <div class="record-center">
+                        BFF
+                    </div>
+
+                </div>
+
+
+                <!-- SHAIRI -->
+
+                <div class="shairi">
+
+                    <p class="quote">
+
+                        "Kuch log zindagi mein dost ban kar aate hain,
+                        aur phir dost se zyada zaroori ban jaate hain."
+
+                    </p>
+
+
+                    <p>
+
+                        Tum woh dost ho jo boring days ko funny bana dete ho,
+                        bad days ko manageable bana dete ho,
+                        aur normal conversations ko somehow
+                        complete chaos bana dete ho.
+
+                    </p>
+
+
+                    <p>
+
+                        Official investigation confirms:
+                        life is considerably better with you in it.
+
+                    </p>
+
+
+                    <p>
+
+                        No matter how dramatic,
+                        weird, chaotic or completely random life gets —
+                        this friendship remains permanently classified.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="play-btn"
+                id="praiseButton"
+            >
+                ▶ PLAY PRAISE MODE
+            </button>
+
+
+            <p
+                class="audio-status"
+                id="audioStatus"
+            >
+                AUDIO STATUS: STANDBY
+            </p>
+
+        </div>
+
+
+
+        <!-- COMPLAINTS -->
+
+        <div class="complaints">
+
+            <div class="section-label">
+                UNOFFICIAL REPORT
+            </div>
+
+            <h2>
+                Unofficial Complaints
+            </h2>
+
+
+            <div class="complaint-grid">
+
+
+                <div class="complaint">
+
+                    <span>
+                        01
+                    </span>
+
+                    <p>
+                        Laughs at the worst possible time.
+                    </p>
+
+                </div>
+
+
+                <div class="complaint">
+
+                    <span>
+                        02
+                    </span>
+
+                    <p>
+                        Knows embarrassing stories that must remain classified.
+                    </p>
+
+                </div>
+
+
+                <div class="complaint">
+
+                    <span>
+                        03
+                    </span>
+
+                    <p>
+                        Somehow makes every situation 10× funnier.
+                    </p>
+
+                </div>
+
+
+                <div class="complaint">
+
+                    <span>
+                        04
+                    </span>
+
+                    <p>
+                        Unfortunately impossible to replace.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="next">
+
+            <button
+                class="main-btn"
+                onclick="goTo('certificatePage')"
+            >
+                ISSUE CERTIFICATE →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PAGE 4 — CERTIFICATE
+===================================================== -->
+
+<section
+    class="page"
+    id="certificatePage"
+>
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <div class="case">
+                CASE FILE // FINAL
+            </div>
+
+            <h1>
+                Official Certificate
+            </h1>
+
+            <p>
+                The investigation is officially complete.
+            </p>
+
+        </div>
+
+
+        <div class="certificate-wrapper">
+
+            <div class="certificate">
+
+                <div class="certificate-top">
+                    OFFICIAL BESTIE DEPARTMENT
+                </div>
+
+
+                <div class="certificate-small">
+                    THIS DOCUMENT CERTIFIES THAT
+                </div>
+
+
+                <h2>
+                    THE WORLD'S<br>
+                    BEST BESTIE
+                </h2>
+
+
+                <p class="certificate-description">
+
+                    has demonstrated exceptional levels of loyalty,
+                    emotional support, comedic excellence,
+                    patience, chaos management and friendship.
+
+                    <br><br>
+
+                    After reviewing all available evidence,
+                    the Bestie Department has reached its final decision:
+
+                    <br><br>
+
+                    <strong>
+                        THIS FRIENDSHIP IS PERMANENT.
+                    </strong>
+
+                </p>
+
+
+                <div class="seal">
+
+                    BFF
+
+                    <small>
+                        APPROVED
+                    </small>
+
+                </div>
+
+
+                <div class="signatures">
+
+                    <div>
+
+                        <div class="signature-line"></div>
+
+                        <small>
+                            OFFICIAL BESTIE OFFICER
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="signature-line"></div>
+
+                        <small>
+                            DATE OF ISSUANCE
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="certificate-number">
+                    CERTIFICATE NO. BFF-001-FOREVER
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="certificate-actions">
+
+            <button
+                class="main-btn"
+                onclick="printCertificate()"
+            >
+                ↓ DOWNLOAD CERTIFICATE
+            </button>
+
+        </div>
+
+
+        <div class="final">
+
+            <small>
+                CASE CLOSED
+            </small>
+
+            <h2>
+                Bestie status:<br>
+                <span>PERMANENT.</span>
+            </h2>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+>
+    TRANSMISSION COMPLETE.
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+const pages =
+    document.querySelectorAll(".page");
+
+const navButtons =
+    document.querySelectorAll(".nav-btn");
+
+
+function goTo(pageId){
+
+    pages.forEach(page => {
+
+        page.classList.remove("active");
+
+    });
+
+
+    const target =
+        document.getElementById(pageId);
+
+
+    if(target){
+
+        target.classList.add("active");
+
+        target.scrollTop = 0;
+
+    }
+
+
+    navButtons.forEach(button => {
+
+        button.classList.remove("active");
+
+
+        if(button.dataset.page === pageId){
+
+            button.classList.add("active");
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   NAVIGATION BUTTONS
+========================================================= */
+
+navButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        goTo(button.dataset.page);
+
+    });
+
+});
+
+
+
+/* =========================================================
+   PRAISE MODE
+========================================================= */
+
+const praiseButton =
+    document.getElementById("praiseButton");
+
+const record =
+    document.getElementById("record");
+
+const audioStatus =
+    document.getElementById("audioStatus");
+
+
+let speaking = false;
+
+
+praiseButton.addEventListener("click",()=>{
+
+
+    if(!("speechSynthesis" in window)){
+
+        audioStatus.textContent =
+            "AUDIO STATUS: NOT SUPPORTED";
+
+        return;
+
+    }
+
+
+    /* STOP */
+
+    if(speaking){
+
+        speechSynthesis.cancel();
+
+        record.classList.remove("playing");
+
+        praiseButton.textContent =
+            "▶ PLAY PRAISE MODE";
+
+        audioStatus.textContent =
+            "AUDIO STATUS: TRANSMISSION STOPPED";
+
+        speaking = false;
+
+        return;
+
+    }
+
+
+    /* PRAISE SCRIPT */
+
+    const text = `
+
+        Attention.
+
+        This is an official announcement
+        from the Bestie Appreciation Department.
+
+        After extensive investigation,
+        we have determined that this person
+        is officially one of the best people
+        ever assigned to your life.
+
+        They provide unlimited roasts.
+        Twenty four seven support.
+        Random laughter.
+        Emergency advice.
+        And an unreasonable amount of chaos.
+
+        Kuch log zindagi mein dost ban kar aate hain,
+        aur phir dost se zyada zaroori ban jaate hain.
+
+        Therefore, this bestie is hereby declared
+        completely irreplaceable.
+
+        Case closed.
+        Friendship permanent.
+        No refunds.
+
+    `;
+
+
+    const speech =
+        new SpeechSynthesisUtterance(text);
+
+
+    speech.rate = .82;
+
+    speech.pitch = 1;
+
+
+    speech.onstart = ()=>{
+
+        speaking = true;
+
+        record.classList.add("playing");
+
+        praiseButton.textContent =
+            "■ STOP PRAISE MODE";
+
+        audioStatus.textContent =
+            "AUDIO STATUS: TRANSMITTING PRAISE...";
+
+    };
+
+
+    speech.onend = ()=>{
+
+        speaking = false;
+
+        record.classList.remove("playing");
+
+        praiseButton.textContent =
+            "▶ PLAY PRAISE MODE";
+
+        audioStatus.textContent =
+            "AUDIO STATUS: TRANSMISSION COMPLETE";
+
+    };
+
+
+    speech.onerror = ()=>{
+
+        speaking = false;
+
+        record.classList.remove("playing");
+
+        praiseButton.textContent =
+            "▶ PLAY PRAISE MODE";
+
+        audioStatus.textContent =
+            "AUDIO STATUS: TRANSMISSION ERROR";
+
+    };
+
+
+    speechSynthesis.speak(speech);
+
+});
+
+
+
+/* =========================================================
+   CERTIFICATE
+========================================================= */
+
+function printCertificate(){
+
+    goTo("certificatePage");
+
+
+    setTimeout(()=>{
+
+        window.print();
+
+    },500);
+
+}
+
+
+
+/* =========================================================
+   KEYBOARD NAVIGATION
+========================================================= */
+
+document.addEventListener("keydown",(event)=>{
+
+
+    const current =
+        [...pages].findIndex(
+            page =>
+            page.classList.contains("active")
+        );
+
+
+    if(event.key === "ArrowRight"){
+
+        const next =
+            (current + 1) % pages.length;
+
+        goTo(pages[next].id);
+
+    }
+
+
+    if(event.key === "ArrowLeft"){
+
+        const previous =
+            (current - 1 + pages.length)
+            % pages.length;
+
+        goTo(pages[previous].id);
+
+    }
+
+});
+
+
+/* =========================================================
+   STOP SPEECH
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    ()=>{
+
+        if("speechSynthesis" in window){
+
+            speechSynthesis.cancel();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

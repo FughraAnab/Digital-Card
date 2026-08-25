@@ -1,0 +1,3201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Blooming Heart Garden ❤️</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    overflow:hidden;
+
+    font-family:
+        "Poppins",
+        "Segoe UI",
+        system-ui,
+        sans-serif;
+
+    color:#3b1019;
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            #fff1f3 0%,
+            #ffe1e5 35%,
+            #ffc5cd 70%,
+            #f99baa 100%
+        );
+}
+
+:root{
+    --red:#e63946;
+    --red-dark:#a4161a;
+    --red-deep:#720f16;
+    --red-light:#ffccd2;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:-10;
+}
+
+.moon{
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    right:8%;
+    top:8%;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fff,
+            #ffe7eb 60%,
+            #ffb8c2
+        );
+
+    box-shadow:
+        0 0 70px
+        rgba(255,255,255,.8);
+
+    opacity:.85;
+}
+
+.cloud{
+    position:absolute;
+
+    width:220px;
+    height:60px;
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.5);
+
+    filter:blur(2px);
+
+    animation:
+        cloudMove
+        35s
+        linear
+        infinite;
+}
+
+.cloud::before,
+.cloud::after{
+    content:"";
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.6);
+}
+
+.cloud::before{
+    width:90px;
+    height:90px;
+    left:35px;
+    bottom:10px;
+}
+
+.cloud::after{
+    width:110px;
+    height:110px;
+    right:35px;
+    bottom:5px;
+}
+
+.cloud.one{
+    top:18%;
+    left:-250px;
+}
+
+.cloud.two{
+    top:45%;
+    left:-500px;
+    animation-delay:-18s;
+    opacity:.35;
+}
+
+@keyframes cloudMove{
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:
+            translateX(
+                calc(100vw + 800px)
+            );
+    }
+}
+
+
+/* =========================================================
+   SCREENS
+========================================================= */
+
+.screen{
+    position:absolute;
+    inset:0;
+
+    min-height:100vh;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:25px;
+}
+
+.screen.active{
+    display:flex;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro{
+    flex-direction:column;
+    text-align:center;
+    gap:22px;
+}
+
+.kicker{
+    color:var(--red-dark);
+
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:.25em;
+
+    text-transform:uppercase;
+}
+
+.intro h1{
+    font-size:
+        clamp(
+            3.5rem,
+            11vw,
+            8rem
+        );
+
+    line-height:.88;
+
+    letter-spacing:-.08em;
+
+    color:var(--red-deep);
+}
+
+.intro h1 span{
+    color:var(--red);
+}
+
+.intro p{
+    max-width:600px;
+
+    color:#7d454d;
+
+    line-height:1.8;
+
+    font-size:16px;
+}
+
+.primary-btn{
+    border:0;
+
+    padding:17px 30px;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f94144,
+            #a4161a
+        );
+
+    color:white;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 15px 35px
+        rgba(164,22,26,.3);
+
+    transition:.3s;
+}
+
+.primary-btn:hover{
+    transform:
+        translateY(-5px)
+        scale(1.03);
+}
+
+
+/* =========================================================
+   GARDEN SCREEN
+========================================================= */
+
+.garden-screen{
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+    overflow:hidden;
+
+    padding-top:25px;
+}
+
+.garden-header{
+    position:relative;
+    z-index:30;
+
+    text-align:center;
+}
+
+.garden-header h2{
+    color:var(--red-deep);
+
+    font-size:
+        clamp(
+            1.8rem,
+            5vw,
+            3rem
+        );
+}
+
+.progress-text{
+    margin-top:5px;
+
+    color:#8b4b54;
+
+    font-size:14px;
+}
+
+.progress{
+    width:
+        min(
+            360px,
+            80vw
+        );
+
+    height:8px;
+
+    margin:12px auto 0;
+
+    border-radius:999px;
+
+    background:
+        rgba(120,20,30,.12);
+
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0%;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff6b6b,
+            #a4161a
+        );
+
+    transition:
+        width .7s
+        cubic-bezier(.22,1,.36,1);
+}
+
+
+/* =========================================================
+   GARDEN
+========================================================= */
+
+.garden{
+    position:relative;
+
+    width:
+        min(
+            1000px,
+            100%
+        );
+
+    height:
+        calc(
+            100vh - 170px
+        );
+
+    margin-top:5px;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   GROUND
+========================================================= */
+
+.ground{
+    position:absolute;
+
+    left:-10%;
+
+    bottom:-80px;
+
+    width:120%;
+
+    height:230px;
+
+    border-radius:
+        50% 50% 0 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #60935d,
+            #386d3e
+        );
+
+    box-shadow:
+        inset
+        0 15px 30px
+        rgba(255,255,255,.15);
+}
+
+.path{
+    position:absolute;
+
+    bottom:-20px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:170px;
+
+    height:220px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #dcae8b,
+            #f1c8a7,
+            #dcae8b
+        );
+
+    border-radius:
+        50% 50% 0 0;
+
+    opacity:.7;
+}
+
+
+/* =========================================================
+   HEART GARDEN
+========================================================= */
+
+.heart-garden{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    width:
+        min(
+            500px,
+            75vw
+        );
+
+    height:
+        min(
+            430px,
+            60vh
+        );
+
+    z-index:10;
+}
+
+.heart-glow{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(0);
+
+    width:300px;
+    height:280px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,45,70,.35),
+            transparent 65%
+        );
+
+    filter:blur(20px);
+
+    opacity:0;
+
+    transition:2s ease;
+}
+
+.garden.complete .heart-glow{
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+
+    opacity:1;
+}
+
+
+/* =========================================================
+   HEART
+========================================================= */
+
+.heart{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:130px;
+    height:130px;
+
+    transform:
+        translate(-50%,-45%)
+        rotate(-45deg)
+        scale(0);
+
+    background:#b5121b;
+
+    opacity:.8;
+
+    transition:
+        1.5s
+        cubic-bezier(.22,1,.36,1);
+
+    z-index:-1;
+}
+
+.heart::before,
+.heart::after{
+    content:"";
+
+    position:absolute;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    background:#b5121b;
+}
+
+.heart::before{
+    top:-65px;
+    left:0;
+}
+
+.heart::after{
+    left:65px;
+    top:0;
+}
+
+.garden.complete .heart{
+    transform:
+        translate(-50%,-45%)
+        rotate(-45deg)
+        scale(1);
+
+    opacity:.35;
+}
+
+
+/* =========================================================
+   FLOWERS
+========================================================= */
+
+.flower{
+    position:absolute;
+
+    width:28px;
+    height:28px;
+
+    cursor:pointer;
+
+    transform:scale(0);
+
+    animation:
+        bloom
+        .8s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+
+    transition:.3s;
+}
+
+.flower:hover{
+    transform:
+        scale(1.35)
+        rotate(10deg) !important;
+}
+
+.petal{
+    position:absolute;
+
+    width:18px;
+    height:18px;
+
+    border-radius:50%;
+
+    background:
+        var(--flower-color);
+
+    box-shadow:
+        0 4px 10px
+        rgba(100,0,20,.15);
+}
+
+.petal:nth-child(1){
+    top:0;
+    left:5px;
+}
+
+.petal:nth-child(2){
+    left:0;
+    top:5px;
+}
+
+.petal:nth-child(3){
+    right:0;
+    top:5px;
+}
+
+.petal:nth-child(4){
+    left:5px;
+    bottom:0;
+}
+
+.flower-center{
+    position:absolute;
+
+    width:12px;
+    height:12px;
+
+    left:8px;
+    top:8px;
+
+    border-radius:50%;
+
+    background:#ffd166;
+
+    z-index:3;
+}
+
+.flower-stem{
+    position:absolute;
+
+    width:4px;
+    height:55px;
+
+    top:22px;
+    left:12px;
+
+    background:#397044;
+
+    border-radius:999px;
+
+    transform-origin:top;
+
+    z-index:-1;
+}
+
+@keyframes bloom{
+    0%{
+        transform:
+            scale(0)
+            rotate(-40deg);
+    }
+
+    70%{
+        transform:
+            scale(1.25)
+            rotate(10deg);
+    }
+
+    100%{
+        transform:
+            scale(1)
+            rotate(0);
+    }
+}
+
+
+/* =========================================================
+   BUNNY
+========================================================= */
+
+.bunny{
+    position:absolute;
+
+    bottom:50px;
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:150px;
+    height:150px;
+
+    z-index:20;
+}
+
+.bunny-body{
+    position:absolute;
+
+    bottom:0;
+    left:25px;
+
+    width:100px;
+    height:100px;
+
+    border-radius:
+        50% 50% 40% 40%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #ffe9ed
+        );
+
+    box-shadow:
+        0 15px 30px
+        rgba(100,10,25,.16);
+}
+
+.bunny-ear{
+    position:absolute;
+
+    top:0;
+
+    width:42px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:
+        inset
+        0 0 0 2px
+        #f8d9df;
+}
+
+.bunny-ear::after{
+    content:"";
+
+    position:absolute;
+
+    left:10px;
+    top:12px;
+
+    width:22px;
+    height:65px;
+
+    border-radius:50%;
+
+    background:#ffb3c0;
+}
+
+.bunny-ear.left{
+    left:30px;
+
+    transform:
+        rotate(-12deg);
+}
+
+.bunny-ear.right{
+    right:30px;
+
+    transform:
+        rotate(12deg);
+}
+
+.bunny-eye{
+    position:absolute;
+
+    top:48px;
+
+    width:11px;
+    height:16px;
+
+    border-radius:50%;
+
+    background:#32131a;
+}
+
+.bunny-eye.left{
+    left:50px;
+}
+
+.bunny-eye.right{
+    right:50px;
+}
+
+.bunny-nose{
+    position:absolute;
+
+    top:67px;
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:13px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#e85c72;
+}
+
+.bunny-mouth{
+    position:absolute;
+
+    top:77px;
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:25px;
+    height:12px;
+
+    border-bottom:
+        2px solid #4b1b24;
+
+    border-radius:
+        0 0 50% 50%;
+}
+
+.bunny-tail{
+    position:absolute;
+
+    right:0;
+    bottom:30px;
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    background:#fff;
+}
+
+
+/* =========================================================
+   GARDEN CONTROLS
+========================================================= */
+
+.garden-controls{
+    position:absolute;
+
+    z-index:50;
+
+    left:50%;
+    bottom:20px;
+
+    transform:
+        translateX(-50%);
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+}
+
+.garden-button{
+    border:0;
+
+    padding:14px 22px;
+
+    border-radius:999px;
+
+    background:#fff;
+
+    color:var(--red-dark);
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 25px
+        rgba(80,10,20,.15);
+
+    transition:.3s;
+}
+
+.garden-button:hover{
+    transform:
+        translateY(-4px);
+}
+
+
+/* =========================================================
+   WATER
+========================================================= */
+
+.water{
+    position:fixed;
+
+    z-index:1000;
+
+    pointer-events:none;
+
+    font-size:20px;
+
+    animation:
+        waterDrop
+        1s
+        ease-out
+        forwards;
+}
+
+@keyframes waterDrop{
+    from{
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+    to{
+        opacity:0;
+
+        transform:
+            translateY(100px)
+            scale(.3);
+    }
+}
+
+
+/* =========================================================
+   BUTTERFLIES
+========================================================= */
+
+.butterfly{
+    position:absolute;
+
+    z-index:30;
+
+    font-size:30px;
+
+    pointer-events:none;
+
+    animation:
+        butterflyFly
+        8s
+        ease-in-out
+        forwards;
+}
+
+@keyframes butterflyFly{
+    0%{
+        transform:
+            translate(0,0)
+            rotate(0);
+    }
+
+    25%{
+        transform:
+            translate(100px,-80px)
+            rotate(10deg);
+    }
+
+    50%{
+        transform:
+            translate(200px,20px)
+            rotate(-10deg);
+    }
+
+    75%{
+        transform:
+            translate(100px,80px)
+            rotate(8deg);
+    }
+
+    100%{
+        transform:
+            translate(-100px,-100px)
+            rotate(-5deg);
+
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   FIREFLIES
+========================================================= */
+
+.firefly{
+    position:fixed;
+
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:#fff1a8;
+
+    box-shadow:
+        0 0 15px
+        5px
+        rgba(255,240,140,.5);
+
+    pointer-events:none;
+
+    animation:
+        fireflyMove
+        4s
+        ease-in-out
+        infinite alternate;
+}
+
+@keyframes fireflyMove{
+    from{
+        transform:
+            translate(0,0);
+
+        opacity:.3;
+    }
+
+    to{
+        transform:
+            translate(
+                40px,
+                -50px
+            );
+
+        opacity:1;
+    }
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.particle{
+    position:fixed;
+
+    z-index:9999;
+
+    pointer-events:none;
+
+    animation:
+        particleFly
+        2s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+}
+
+@keyframes particleFly{
+    from{
+        opacity:1;
+
+        transform:
+            translate(0,0)
+            scale(1)
+            rotate(0);
+    }
+
+    to{
+        opacity:0;
+
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(.1)
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   TRANSITION
+========================================================= */
+
+.transition{
+    position:fixed;
+
+    inset:0;
+
+    z-index:10000;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a4161a,
+            #e63946,
+            #ffb3c0
+        );
+
+    transform:
+        translateY(100%);
+
+    transition:
+        .7s
+        cubic-bezier(.22,1,.36,1);
+}
+
+.transition.active{
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   SPECIAL FINAL SCREEN
+========================================================= */
+
+.final-screen{
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #fff5f6 0%,
+            #ffd9de 35%,
+            #f39aaa 70%,
+            #a4161a 130%
+        );
+
+    flex-direction:column;
+}
+
+
+/* =========================================================
+   FINAL STARS
+========================================================= */
+
+.final-stars{
+    position:absolute;
+    inset:0;
+
+    pointer-events:none;
+}
+
+.final-stars span{
+    position:absolute;
+
+    color:#fff;
+
+    font-size:20px;
+
+    animation:
+        finalTwinkle
+        2s
+        ease-in-out
+        infinite alternate;
+}
+
+.final-stars span:nth-child(1){
+    left:10%;
+    top:18%;
+}
+
+.final-stars span:nth-child(2){
+    left:20%;
+    top:70%;
+    animation-delay:.4s;
+}
+
+.final-stars span:nth-child(3){
+    left:80%;
+    top:20%;
+    animation-delay:.8s;
+}
+
+.final-stars span:nth-child(4){
+    left:90%;
+    top:60%;
+    animation-delay:1s;
+}
+
+.final-stars span:nth-child(5){
+    left:65%;
+    top:10%;
+    animation-delay:.2s;
+}
+
+.final-stars span:nth-child(6){
+    left:35%;
+    top:15%;
+    animation-delay:1.2s;
+}
+
+@keyframes finalTwinkle{
+    from{
+        opacity:.2;
+        transform:scale(.6);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.4);
+    }
+}
+
+
+/* =========================================================
+   SECRET GARDEN GATE
+========================================================= */
+
+.garden-gate{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    text-align:center;
+
+    transition:
+        1s
+        cubic-bezier(.22,1,.36,1);
+}
+
+.garden-gate.hide{
+    opacity:0;
+
+    transform:
+        translate(-50%,-55%)
+        scale(.8);
+
+    pointer-events:none;
+}
+
+.gate-title{
+    margin-bottom:25px;
+
+    color:#8b1019;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    letter-spacing:.3em;
+}
+
+.gate{
+    position:relative;
+
+    width:300px;
+    height:300px;
+
+    display:flex;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+    border-radius:
+        150px 150px 0 0;
+
+    border:
+        8px solid #73111a;
+
+    background:
+        linear-gradient(
+            180deg,
+            #4c1118,
+            #7c1720
+        );
+
+    box-shadow:
+        0 25px 70px
+        rgba(90,0,10,.35);
+}
+
+.gate-door{
+    position:absolute;
+
+    top:0;
+
+    width:50%;
+    height:100%;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #78151e 0px,
+            #78151e 18px,
+            #9d202b 19px,
+            #9d202b 23px
+        );
+
+    transition:
+        1.8s
+        cubic-bezier(.22,1,.36,1);
+
+    z-index:3;
+}
+
+.gate-door.left{
+    left:0;
+
+    transform-origin:left center;
+
+    border-right:
+        2px solid #d04b58;
+}
+
+.gate-door.right{
+    right:0;
+
+    transform-origin:right center;
+
+    border-left:
+        2px solid #d04b58;
+}
+
+.gate.open .gate-door.left{
+    transform:
+        perspective(800px)
+        rotateY(-105deg);
+}
+
+.gate.open .gate-door.right{
+    transform:
+        perspective(800px)
+        rotateY(105deg);
+}
+
+.gate-heart{
+    position:absolute;
+
+    z-index:2;
+
+    top:45%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    font-size:55px;
+
+    color:#ffb5be;
+
+    text-shadow:
+        0 0 25px
+        #ff5366;
+
+    animation:
+        gateHeartbeat
+        1.2s
+        infinite;
+}
+
+@keyframes gateHeartbeat{
+    0%,
+    100%{
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+    }
+
+    50%{
+        transform:
+            translate(-50%,-50%)
+            scale(1.15);
+    }
+}
+
+.open-gate{
+    margin-top:25px;
+
+    border:0;
+
+    padding:16px 28px;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e63946,
+            #8b1019
+        );
+
+    color:#fff;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 15px 35px
+        rgba(120,10,20,.3);
+
+    transition:.3s;
+}
+
+.open-gate:hover{
+    transform:
+        translateY(-4px)
+        scale(1.03);
+}
+
+
+/* =========================================================
+   FINAL REVEAL
+========================================================= */
+
+.final-reveal{
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:20px;
+
+    opacity:0;
+
+    transform:
+        scale(.8)
+        translateY(30px);
+
+    pointer-events:none;
+
+    transition:
+        1.2s
+        cubic-bezier(.22,1,.36,1);
+}
+
+.final-reveal.show{
+    opacity:1;
+
+    transform:
+        scale(1)
+        translateY(0);
+
+    pointer-events:auto;
+}
+
+.final-small{
+    color:#8d1822;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    letter-spacing:.3em;
+
+    margin-bottom:15px;
+}
+
+
+/* =========================================================
+   GIANT HEART
+========================================================= */
+
+.giant-heart{
+    position:relative;
+
+    width:115px;
+    height:115px;
+
+    margin:10px 0 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3d55,
+            #9e111b
+        );
+
+    transform:
+        rotate(-45deg);
+
+    animation:
+        giantHeartbeat
+        1.5s
+        ease-in-out
+        infinite;
+
+    filter:
+        drop-shadow(
+            0 15px 25px
+            rgba(140,0,20,.35)
+        );
+}
+
+.giant-heart::before,
+.giant-heart::after{
+    content:"";
+
+    position:absolute;
+
+    width:115px;
+    height:115px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3d55,
+            #9e111b
+        );
+}
+
+.giant-heart::before{
+    top:-57px;
+    left:0;
+}
+
+.giant-heart::after{
+    left:57px;
+    top:0;
+}
+
+.heart-shine{
+    position:absolute;
+
+    z-index:5;
+
+    left:55px;
+    top:15px;
+
+    color:#fff;
+
+    font-size:25px;
+
+    transform:
+        rotate(45deg);
+
+    animation:
+        shine
+        1.5s
+        infinite;
+}
+
+@keyframes giantHeartbeat{
+    0%,
+    100%{
+        transform:
+            rotate(-45deg)
+            scale(1);
+    }
+
+    50%{
+        transform:
+            rotate(-45deg)
+            scale(1.12);
+    }
+}
+
+@keyframes shine{
+    0%{
+        opacity:.2;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:.2;
+    }
+}
+
+
+/* =========================================================
+   FINAL TITLE
+========================================================= */
+
+.final-reveal h1{
+    color:#7d1019;
+
+    font-size:
+        clamp(
+            2.8rem,
+            8vw,
+            6rem
+        );
+
+    line-height:.9;
+
+    letter-spacing:-.07em;
+}
+
+.name-line{
+    margin-top:12px;
+
+    color:#d21f32;
+
+    font-size:15px;
+
+    font-weight:900;
+
+    letter-spacing:.18em;
+}
+
+
+/* =========================================================
+   MESSAGE CARD
+========================================================= */
+
+.message-card{
+    position:relative;
+
+    max-width:500px;
+
+    margin-top:25px;
+
+    padding:
+        28px
+        35px;
+
+    border-radius:25px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    backdrop-filter:
+        blur(12px);
+
+    border:
+        1px solid
+        rgba(255,255,255,.9);
+
+    box-shadow:
+        0 20px 60px
+        rgba(100,10,20,.16);
+
+    color:#6d343c;
+
+    line-height:1.8;
+}
+
+.message-card p{
+    margin-bottom:7px;
+}
+
+.message-card strong{
+    display:block;
+
+    margin-top:10px;
+
+    color:#941522;
+}
+
+.card-flower{
+    font-size:30px;
+
+    margin-bottom:5px;
+}
+
+.card-divider{
+    margin:13px 0;
+
+    color:#d52135;
+}
+
+
+/* =========================================================
+   FINAL BUNNY
+========================================================= */
+
+.final-bunny{
+    margin-top:15px;
+
+    font-size:40px;
+
+    animation:
+        bunnyBounce
+        2s
+        ease-in-out
+        infinite;
+}
+
+@keyframes bunnyBounce{
+    0%,
+    100%{
+        transform:
+            translateY(0);
+    }
+
+    50%{
+        transform:
+            translateY(-9px);
+    }
+}
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+.special-restart{
+    margin-top:15px;
+
+    background:
+        rgba(255,255,255,.85);
+}
+
+
+/* =========================================================
+   FALLING PETALS
+========================================================= */
+
+.petal-rain{
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+}
+
+.falling-petal{
+    position:absolute;
+
+    top:-40px;
+
+    font-size:15px;
+
+    animation:
+        fallPetal
+        linear
+        forwards;
+}
+
+@keyframes fallPetal{
+    0%{
+        transform:
+            translateY(-40px)
+            rotate(0deg);
+
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+            translateY(110vh)
+            translateX(
+                var(--drift)
+            )
+            rotate(500deg);
+
+        opacity:.1;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    .moon{
+        width:100px;
+        height:100px;
+    }
+
+    .heart-garden{
+        width:90vw;
+        height:55vh;
+    }
+
+    .bunny{
+        transform:
+            translateX(-50%)
+            scale(.8);
+    }
+
+    .garden{
+        height:
+            calc(
+                100vh - 150px
+            );
+    }
+
+    .garden-button{
+        padding:12px 17px;
+        font-size:13px;
+    }
+
+    .gate{
+        width:240px;
+        height:260px;
+    }
+
+    .message-card{
+        padding:
+            20px 22px;
+
+        font-size:13px;
+
+        max-width:90vw;
+    }
+
+    .giant-heart{
+        width:85px;
+        height:85px;
+
+        margin-bottom:22px;
+    }
+
+    .giant-heart::before,
+    .giant-heart::after{
+        width:85px;
+        height:85px;
+    }
+
+    .giant-heart::before{
+        top:-42px;
+    }
+
+    .giant-heart::after{
+        left:42px;
+    }
+
+    .heart-shine{
+        left:40px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     BACKGROUND
+======================================================= -->
+
+<div class="background">
+
+    <div class="moon"></div>
+
+    <div class="cloud one"></div>
+
+    <div class="cloud two"></div>
+
+</div>
+
+
+<div
+    class="transition"
+    id="transition"
+></div>
+
+
+<!-- =======================================================
+     INTRO
+======================================================= -->
+
+<section
+    class="screen intro active"
+    id="intro"
+>
+
+    <div class="kicker">
+        ✦ A tiny garden awaits ✦
+    </div>
+
+    <h1>
+        Let's grow<br>
+        <span>a heart.</span> ❤️
+    </h1>
+
+    <p>
+        Somewhere behind this little garden,
+        a bunny is waiting with a tiny seed.
+        Give it a little love and see what happens.
+    </p>
+
+    <button
+        class="primary-btn"
+        id="beginButton"
+    >
+        Enter the Garden 🌹
+    </button>
+
+</section>
+
+
+<!-- =======================================================
+     GARDEN
+======================================================= -->
+
+<section
+    class="screen garden-screen"
+    id="gardenScreen"
+>
+
+    <div class="garden-header">
+
+        <div class="kicker">
+            ✦ The Secret Garden ✦
+        </div>
+
+        <h2>
+            Help the garden bloom 🌹
+        </h2>
+
+        <div
+            class="progress-text"
+            id="progressText"
+        >
+            0% bloomed
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="garden"
+        id="garden"
+    >
+
+        <div class="ground"></div>
+
+        <div class="path"></div>
+
+
+        <div
+            class="heart-garden"
+            id="heartGarden"
+        >
+
+            <div class="heart-glow"></div>
+
+            <div class="heart"></div>
+
+        </div>
+
+
+        <!-- BUNNY -->
+
+        <div class="bunny">
+
+            <div class="bunny-ear left"></div>
+
+            <div class="bunny-ear right"></div>
+
+            <div class="bunny-body">
+
+                <div class="bunny-eye left"></div>
+
+                <div class="bunny-eye right"></div>
+
+                <div class="bunny-nose"></div>
+
+                <div class="bunny-mouth"></div>
+
+            </div>
+
+            <div class="bunny-tail"></div>
+
+        </div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="garden-controls">
+
+            <button
+                class="garden-button"
+                id="waterButton"
+            >
+                💧 Water the Garden
+            </button>
+
+            <button
+                class="garden-button"
+                id="bloomButton"
+            >
+                🌹 Grow a Flower
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     SPECIAL FINAL SCREEN
+======================================================= -->
+
+<section
+    class="screen final-screen"
+    id="finalScreen"
+>
+
+    <!-- Falling petals -->
+
+    <div
+        class="petal-rain"
+        id="petalRain"
+    ></div>
+
+
+    <!-- Stars -->
+
+    <div class="final-stars">
+
+        <span>✦</span>
+        <span>✧</span>
+        <span>✦</span>
+        <span>✧</span>
+        <span>✦</span>
+        <span>✧</span>
+
+    </div>
+
+
+    <!-- ===================================================
+         SECRET GATE
+    =================================================== -->
+
+    <div
+        class="garden-gate"
+        id="gardenGate"
+    >
+
+        <div class="gate-title">
+            THE SECRET GARDEN
+        </div>
+
+
+        <div
+            class="gate"
+            id="gate"
+        >
+
+            <div
+                class="gate-door left"
+            ></div>
+
+            <div
+                class="gate-door right"
+            ></div>
+
+            <div class="gate-heart">
+                ♥
+            </div>
+
+        </div>
+
+
+        <button
+            class="open-gate"
+            id="openGate"
+        >
+            Open the Garden ❤️
+        </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         FINAL REVEAL
+    =================================================== -->
+
+    <div
+        class="final-reveal"
+        id="finalReveal"
+    >
+
+        <div class="final-small">
+            ✦ THE GARDEN HAS A SECRET ✦
+        </div>
+
+
+        <div class="giant-heart">
+
+            <div class="heart-shine">
+                ✦
+            </div>
+
+        </div>
+
+
+        <h1>
+            Happy Birthday
+        </h1>
+
+
+        <!-- CHANGE THIS -->
+
+      
+
+
+        <div class="message-card">
+
+            <div class="card-flower">
+                🌹
+            </div>
+
+            <p>
+                A tiny seed became a flower.
+            </p>
+
+            <p>
+                One flower became a garden.
+            </p>
+
+            <p>
+                And somehow...
+                the whole garden became a heart.
+            </p>
+
+            <div class="card-divider">
+                ❤️ · 🌹 · ❤️
+            </div>
+
+            <strong>
+                May your birthday be as
+                beautiful as this little garden.
+            </strong>
+
+        </div>
+
+
+        <div class="final-bunny">
+            🐰🌹
+        </div>
+
+
+        <button
+            class="restart special-restart"
+            id="restartButton"
+        >
+            🌱 Grow It Again
+        </button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const intro =
+    document.getElementById("intro");
+
+const gardenScreen =
+    document.getElementById("gardenScreen");
+
+const finalScreen =
+    document.getElementById("finalScreen");
+
+const beginButton =
+    document.getElementById("beginButton");
+
+const waterButton =
+    document.getElementById("waterButton");
+
+const bloomButton =
+    document.getElementById("bloomButton");
+
+const restartButton =
+    document.getElementById("restartButton");
+
+const garden =
+    document.getElementById("garden");
+
+const heartGarden =
+    document.getElementById("heartGarden");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressText =
+    document.getElementById("progressText");
+
+const transition =
+    document.getElementById("transition");
+
+const openGate =
+    document.getElementById("openGate");
+
+const gardenGate =
+    document.getElementById("gardenGate");
+
+const gate =
+    document.getElementById("gate");
+
+const finalReveal =
+    document.getElementById("finalReveal");
+
+const petalRain =
+    document.getElementById("petalRain");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let flowers = 0;
+
+const maxFlowers = 40;
+
+let watered = 0;
+
+
+/* =========================================================
+   SCREEN TRANSITION
+========================================================= */
+
+function showScreen(screen){
+
+    transition.classList.add("active");
+
+    setTimeout(()=>{
+
+        document
+            .querySelectorAll(".screen")
+            .forEach(
+                s =>
+                s.classList.remove("active")
+            );
+
+        screen.classList.add("active");
+
+    },350);
+
+    setTimeout(()=>{
+
+        transition.classList.remove("active");
+
+    },750);
+}
+
+
+/* =========================================================
+   BEGIN
+========================================================= */
+
+beginButton.addEventListener(
+    "click",
+    ()=>{
+
+        showScreen(gardenScreen);
+
+        createFireflies(12);
+
+        setTimeout(
+            ()=>bloomFlower(),
+            500
+        );
+
+        setTimeout(
+            ()=>bloomFlower(),
+            1000
+        );
+
+        setTimeout(
+            ()=>bloomFlower(),
+            1500
+        );
+
+    }
+);
+
+
+/* =========================================================
+   HEART POSITION
+========================================================= */
+
+function heartPosition(index){
+
+    const t =
+        Math.PI * 2 *
+        (index / maxFlowers);
+
+    const x =
+        16 *
+        Math.pow(
+            Math.sin(t),
+            3
+        );
+
+    const y =
+        13 *
+        Math.cos(t)
+        -
+        5 *
+        Math.cos(2*t)
+        -
+        2 *
+        Math.cos(3*t)
+        -
+        Math.cos(4*t);
+
+    return {
+        x,
+        y
+    };
+}
+
+
+/* =========================================================
+   CREATE FLOWER
+========================================================= */
+
+function bloomFlower(){
+
+    if(flowers >= maxFlowers){
+
+        completeGarden();
+
+        return;
+    }
+
+
+    const flower =
+        document.createElement("div");
+
+    flower.className =
+        "flower";
+
+
+    const pos =
+        heartPosition(flowers);
+
+
+    const scale =
+        Math.min(
+            heartGarden.clientWidth,
+            heartGarden.clientHeight
+        ) / 38;
+
+
+    const x =
+        pos.x * scale;
+
+    const y =
+        -pos.y * scale;
+
+
+    flower.style.left =
+        `calc(50% + ${x}px)`;
+
+
+    flower.style.top =
+        `calc(50% + ${y}px)`;
+
+
+    const colors=[
+        "#e63946",
+        "#c1121f",
+        "#ff4d6d",
+        "#a4161a",
+        "#ff758f",
+        "#d90429"
+    ];
+
+
+    flower.style.setProperty(
+        "--flower-color",
+        colors[
+            Math.floor(
+                Math.random() *
+                colors.length
+            )
+        ]
+    );
+
+
+    flower.innerHTML=`
+
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+
+        <div class="flower-center"></div>
+
+        <div class="flower-stem"></div>
+
+    `;
+
+
+    heartGarden.appendChild(
+        flower
+    );
+
+
+    flowers++;
+
+    updateProgress();
+
+
+    createParticles(
+        flower.getBoundingClientRect().left,
+        flower.getBoundingClientRect().top,
+        5
+    );
+
+
+    if(flowers === maxFlowers){
+
+        setTimeout(
+            completeGarden,
+            1200
+        );
+    }
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress(){
+
+    const percent =
+        Math.round(
+            (flowers / maxFlowers) *
+            100
+        );
+
+
+    progressBar.style.width =
+        percent + "%";
+
+
+    progressText.textContent =
+        percent +
+        "% bloomed";
+
+
+    if(percent >= 50){
+
+        createButterfly();
+
+    }
+}
+
+
+/* =========================================================
+   WATER
+========================================================= */
+
+waterButton.addEventListener(
+    "click",
+    ()=>{
+
+        watered++;
+
+
+        const rect =
+            waterButton.getBoundingClientRect();
+
+
+        for(
+            let i=0;
+            i<10;
+            i++
+        ){
+
+            const drop =
+                document.createElement("div");
+
+
+            drop.className =
+                "water";
+
+
+            drop.textContent =
+                "💧";
+
+
+            drop.style.left =
+                (
+                    rect.left +
+                    Math.random() *
+                    rect.width
+                ) + "px";
+
+
+            drop.style.top =
+                rect.top + "px";
+
+
+            document.body.appendChild(
+                drop
+            );
+
+
+            setTimeout(
+                ()=>{
+                    drop.remove();
+                },
+                1000
+            );
+
+        }
+
+
+        const amount =
+            watered < 4
+                ? 2
+                : 3;
+
+
+        for(
+            let i=0;
+            i<amount;
+            i++
+        ){
+
+            setTimeout(
+                bloomFlower,
+                i*250
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   GROW FLOWER
+========================================================= */
+
+bloomButton.addEventListener(
+    "click",
+    ()=>{
+
+        bloomFlower();
+
+    }
+);
+
+
+/* =========================================================
+   BUTTERFLY
+========================================================= */
+
+function createButterfly(){
+
+    const butterfly =
+        document.createElement(
+            "div"
+        );
+
+
+    butterfly.className =
+        "butterfly";
+
+
+    butterfly.textContent =
+        "🦋";
+
+
+    butterfly.style.left =
+        (
+            20 +
+            Math.random()*60
+        ) + "%";
+
+
+    butterfly.style.top =
+        (
+            25 +
+            Math.random()*30
+        ) + "%";
+
+
+    garden.appendChild(
+        butterfly
+    );
+
+
+    setTimeout(
+        ()=>{
+            butterfly.remove();
+        },
+        8000
+    );
+}
+
+
+/* =========================================================
+   FIREFLIES
+========================================================= */
+
+function createFireflies(amount){
+
+    for(
+        let i=0;
+        i<amount;
+        i++
+    ){
+
+        const firefly =
+            document.createElement(
+                "div"
+            );
+
+
+        firefly.className =
+            "firefly";
+
+
+        firefly.style.left =
+            Math.random()*100 +
+            "%";
+
+
+        firefly.style.top =
+            Math.random()*75 +
+            "%";
+
+
+        firefly.style.animationDelay =
+            (
+                Math.random()*4
+            ) + "s";
+
+
+        garden.appendChild(
+            firefly
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   COMPLETE GARDEN
+========================================================= */
+
+function completeGarden(){
+
+    if(
+        garden.classList.contains(
+            "complete"
+        )
+    ){
+        return;
+    }
+
+
+    garden.classList.add(
+        "complete"
+    );
+
+
+    progressText.textContent =
+        "100% — The heart has bloomed! ❤️";
+
+
+    progressBar.style.width =
+        "100%";
+
+
+    createParticles(
+        window.innerWidth/2,
+        window.innerHeight/2,
+        100
+    );
+
+
+    for(
+        let i=0;
+        i<8;
+        i++
+    ){
+
+        setTimeout(
+            createButterfly,
+            i*300
+        );
+
+    }
+
+
+    /*
+       Go to the secret gate.
+    */
+
+    setTimeout(
+        ()=>{
+            showScreen(finalScreen);
+        },
+        4000
+    );
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+function createParticles(
+    x,
+    y,
+    amount
+){
+
+    const symbols=[
+        "❤️",
+        "🌹",
+        "🌸",
+        "✨",
+        "♡",
+        "✦"
+    ];
+
+
+    for(
+        let i=0;
+        i<amount;
+        i++
+    ){
+
+        const p =
+            document.createElement(
+                "div"
+            );
+
+
+        p.className =
+            "particle";
+
+
+        p.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+
+        p.style.left =
+            x + "px";
+
+
+        p.style.top =
+            y + "px";
+
+
+        p.style.fontSize =
+            (
+                12 +
+                Math.random()*24
+            ) + "px";
+
+
+        p.style.setProperty(
+            "--x",
+            (
+                (Math.random()-.5) *
+                700
+            ) + "px"
+        );
+
+
+        p.style.setProperty(
+            "--y",
+            (
+                (Math.random()-.5) *
+                500
+            ) + "px"
+        );
+
+
+        document.body.appendChild(
+            p
+        );
+
+
+        setTimeout(
+            ()=>{
+                p.remove();
+            },
+            2000
+        );
+
+    }
+}
+
+
+/* =========================================================
+   FLOWER CLICK
+========================================================= */
+
+heartGarden.addEventListener(
+    "click",
+    event=>{
+
+        const flower =
+            event.target.closest(
+                ".flower"
+            );
+
+
+        if(!flower){
+            return;
+        }
+
+
+        flower.animate(
+            [
+                {
+                    transform:
+                        "scale(1)"
+                },
+                {
+                    transform:
+                        "scale(1.7)"
+                },
+                {
+                    transform:
+                        "scale(1)"
+                }
+            ],
+            {
+                duration:500
+            }
+        );
+
+
+        const rect =
+            flower.getBoundingClientRect();
+
+
+        createParticles(
+            rect.left,
+            rect.top,
+            10
+        );
+
+    }
+);
+
+
+/* =========================================================
+   OPEN SECRET GATE
+========================================================= */
+
+openGate.addEventListener(
+    "click",
+    ()=>{
+
+        gate.classList.add(
+            "open"
+        );
+
+
+        createParticles(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            60
+        );
+
+
+        startPetalRain();
+
+
+        setTimeout(
+            ()=>{
+                gardenGate.classList.add(
+                    "hide"
+                );
+            },
+            1000
+        );
+
+
+        setTimeout(
+            ()=>{
+                finalReveal.classList.add(
+                    "show"
+                );
+            },
+            1800
+        );
+
+    }
+);
+
+
+/* =========================================================
+   PETAL RAIN
+========================================================= */
+
+function startPetalRain(){
+
+    for(
+        let i=0;
+        i<45;
+        i++
+    ){
+
+        setTimeout(
+            ()=>{
+
+                const petal =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                petal.className =
+                    "falling-petal";
+
+
+                const symbols=[
+                    "🌹",
+                    "🌸",
+                    "❤️",
+                    "✦"
+                ];
+
+
+                petal.textContent =
+                    symbols[
+                        Math.floor(
+                            Math.random() *
+                            symbols.length
+                        )
+                    ];
+
+
+                petal.style.left =
+                    Math.random()*100 +
+                    "%";
+
+
+                petal.style.setProperty(
+                    "--drift",
+                    (
+                        Math.random()*250 -
+                        125
+                    ) + "px"
+                );
+
+
+                petal.style.animationDuration =
+                    (
+                        4 +
+                        Math.random()*5
+                    ) + "s";
+
+
+                petal.style.fontSize =
+                    (
+                        12 +
+                        Math.random()*20
+                    ) + "px";
+
+
+                petalRain.appendChild(
+                    petal
+                );
+
+
+                setTimeout(
+                    ()=>{
+                        petal.remove();
+                    },
+                    10000
+                );
+
+            },
+            i*120
+        );
+
+    }
+}
+
+
+/* =========================================================
+   FINAL SCREEN CLICK EFFECT
+========================================================= */
+
+finalReveal.addEventListener(
+    "click",
+    event=>{
+
+        createParticles(
+            event.clientX,
+            event.clientY,
+            12
+        );
+
+    }
+);
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+restartButton.addEventListener(
+    "click",
+    ()=>{
+
+        flowers=0;
+
+        watered=0;
+
+
+        heartGarden
+            .querySelectorAll(
+                ".flower"
+            )
+            .forEach(
+                flower =>
+                flower.remove()
+            );
+
+
+        garden
+            .querySelectorAll(
+                ".firefly,.butterfly"
+            )
+            .forEach(
+                item =>
+                item.remove()
+            );
+
+
+        garden.classList.remove(
+            "complete"
+        );
+
+
+        progressBar.style.width =
+            "0%";
+
+
+        progressText.textContent =
+            "0% bloomed";
+
+
+        gate.classList.remove(
+            "open"
+        );
+
+
+        gardenGate.classList.remove(
+            "hide"
+        );
+
+
+        finalReveal.classList.remove(
+            "show"
+        );
+
+
+        petalRain.innerHTML="";
+
+
+        showScreen(
+            gardenScreen
+        );
+
+
+        createFireflies(12);
+
+    }
+);
+
+
+/* =========================================================
+   BUTTON MICRO ANIMATION
+========================================================= */
+
+document
+    .querySelectorAll("button")
+    .forEach(
+        button=>{
+
+            button.addEventListener(
+                "click",
+                ()=>{
+
+                    button.animate(
+                        [
+                            {
+                                transform:
+                                    "scale(1)"
+                            },
+                            {
+                                transform:
+                                    "scale(.94)"
+                            },
+                            {
+                                transform:
+                                    "scale(1)"
+                            }
+                        ],
+                        {
+                            duration:180
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+
+        const flowersList =
+            [
+                ...heartGarden
+                    .querySelectorAll(
+                        ".flower"
+                    )
+            ];
+
+
+        const scale =
+            Math.min(
+                heartGarden.clientWidth,
+                heartGarden.clientHeight
+            ) / 38;
+
+
+        flowersList.forEach(
+            (flower,index)=>{
+
+                const pos =
+                    heartPosition(index);
+
+
+                flower.style.left =
+                    `calc(50% + ${pos.x*scale}px)`;
+
+
+                flower.style.top =
+                    `calc(50% + ${-pos.y*scale}px)`;
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>

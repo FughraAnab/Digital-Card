@@ -1,0 +1,2766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Little Surprise 🐰💗</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:
+        "Poppins",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            #fff6f9,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            #ffe9f0,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #fffafd,
+            #fff0f5
+        );
+
+    color:#432535;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+
+    --pink:#ff6b9a;
+    --pink-dark:#e94878;
+    --pink-light:#ffd6e3;
+
+    --purple:#9b5de5;
+
+    --cream:#fffaf7;
+
+    --text:#432535;
+    --muted:#8d7280;
+
+    --shadow:
+        0 25px 70px
+        rgba(133,36,77,.15);
+
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background{
+    position:fixed;
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:-10;
+}
+
+.glow{
+    position:absolute;
+
+    width:350px;
+    height:350px;
+
+    border-radius:50%;
+
+    filter:blur(80px);
+
+    opacity:.35;
+
+    animation:
+        glowMove
+        14s ease-in-out
+        infinite alternate;
+}
+
+.glow.one{
+    background:#ff9fba;
+
+    left:-120px;
+    top:10%;
+}
+
+.glow.two{
+    background:#d8b4fe;
+
+    right:-130px;
+    bottom:10%;
+
+    animation-delay:-5s;
+}
+
+.glow.three{
+    background:#ffd6e3;
+
+    left:45%;
+    top:40%;
+
+    animation-delay:-8s;
+}
+
+@keyframes glowMove{
+
+    from{
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    to{
+        transform:
+            translate(70px,-50px)
+            scale(1.2);
+    }
+
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+    position:relative;
+
+    width:100%;
+    min-height:100vh;
+}
+
+
+/* =========================================================
+   SCREENS
+========================================================= */
+
+.screen{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    min-height:100vh;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:30px;
+
+}
+
+.screen.active{
+    display:flex;
+}
+
+
+/* =========================================================
+   INTRO SCREEN
+========================================================= */
+
+.intro{
+
+    text-align:center;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+.intro-small{
+
+    color:var(--pink-dark);
+
+    font-size:13px;
+
+    font-weight:800;
+
+    letter-spacing:.15em;
+
+    text-transform:uppercase;
+
+}
+
+.intro-title{
+
+    font-size:
+        clamp(
+            3rem,
+            9vw,
+            7rem
+        );
+
+    line-height:.95;
+
+    letter-spacing:-.06em;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f81,
+            #d63384,
+            #9b5de5
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+}
+
+.intro-text{
+
+    max-width:600px;
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+}
+
+.start-button{
+
+    border:0;
+
+    padding:17px 30px;
+
+    border-radius:999px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink),
+            var(--pink-dark)
+        );
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 15px 35px
+        rgba(233,72,120,.25);
+
+    transition:.35s;
+
+}
+
+.start-button:hover{
+
+    transform:
+        translateY(-5px)
+        scale(1.03);
+
+}
+
+
+/* =========================================================
+   BUNNY SCREEN
+========================================================= */
+
+.bunny-screen{
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+}
+
+
+/* =========================================================
+   SPEECH
+========================================================= */
+
+.speech{
+
+    position:relative;
+
+    z-index:20;
+
+    width:
+        min(
+            620px,
+            90vw
+        );
+
+    min-height:130px;
+
+    padding:30px;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.85);
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+        var(--shadow);
+
+    text-align:center;
+
+    animation:
+        speechIn
+        .7s
+        cubic-bezier(.22,1,.36,1);
+
+}
+
+@keyframes speechIn{
+
+    from{
+        opacity:0;
+        transform:
+            translateY(20px)
+            scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+.speech-name{
+
+    color:var(--pink-dark);
+
+    font-size:12px;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    letter-spacing:.15em;
+
+}
+
+.speech-text{
+
+    margin-top:10px;
+
+    font-size:
+        clamp(
+            1.1rem,
+            3vw,
+            1.5rem
+        );
+
+    line-height:1.6;
+
+    font-weight:600;
+
+}
+
+
+/* =========================================================
+   BUNNY
+========================================================= */
+
+.bunny-area{
+
+    position:relative;
+
+    width:
+        min(
+            420px,
+            90vw
+        );
+
+    height:440px;
+
+    margin-top:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+/* ears */
+
+.ear{
+
+    position:absolute;
+
+    width:90px;
+    height:175px;
+
+    top:40px;
+
+    border-radius:
+        60% 60% 45% 45%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #f9e7ec
+        );
+
+    box-shadow:
+        inset 0 0 0 3px
+        rgba(150,90,110,.08);
+
+    z-index:1;
+
+}
+
+.ear::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:50px;
+    height:130px;
+
+    left:50%;
+    top:20px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffc1d3,
+            #ffdae5
+        );
+
+}
+
+.ear.left{
+
+    left:90px;
+
+    transform:
+        rotate(-13deg);
+
+}
+
+.ear.right{
+
+    right:90px;
+
+    transform:
+        rotate(13deg);
+
+}
+
+
+/* bunny head */
+
+.bunny{
+
+    position:relative;
+
+    width:260px;
+    height:245px;
+
+    margin-top:100px;
+
+    border-radius:
+        48%
+        48%
+        45%
+        45%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f9edf1
+        );
+
+    box-shadow:
+        0 30px 50px
+        rgba(115,49,70,.15);
+
+    z-index:5;
+
+    transition:
+        .5s
+        cubic-bezier(.22,1,.36,1);
+
+}
+
+
+/* cheeks */
+
+.cheek{
+
+    position:absolute;
+
+    width:42px;
+    height:25px;
+
+    top:138px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,157,181,.35);
+
+}
+
+.cheek.left{
+    left:25px;
+}
+
+.cheek.right{
+    right:25px;
+}
+
+
+/* eyes */
+
+.eye{
+
+    position:absolute;
+
+    width:18px;
+    height:24px;
+
+    top:105px;
+
+    border-radius:50%;
+
+    background:#38232d;
+
+    transition:.3s;
+
+}
+
+.eye.left{
+    left:78px;
+}
+
+.eye.right{
+    right:78px;
+}
+
+
+/* happy eyes */
+
+.bunny.happy .eye{
+
+    height:12px;
+
+    border-radius:
+        50% 50% 0 0;
+
+    transform:
+        rotate(10deg);
+
+}
+
+
+/* sad eyes */
+
+.bunny.sad .eye{
+
+    height:25px;
+
+    transform:
+        rotate(180deg);
+
+}
+
+
+/* nose */
+
+.nose{
+
+    position:absolute;
+
+    left:50%;
+    top:130px;
+
+    transform:
+        translateX(-50%);
+
+    width:18px;
+    height:14px;
+
+    border-radius:
+        50% 50% 60% 60%;
+
+    background:#e77a96;
+
+}
+
+
+/* mouth */
+
+.mouth{
+
+    position:absolute;
+
+    left:50%;
+    top:144px;
+
+    width:35px;
+    height:22px;
+
+    transform:
+        translateX(-50%);
+
+    border-bottom:
+        3px solid #57313e;
+
+    border-radius:
+        0 0 50% 50%;
+
+    transition:.3s;
+
+}
+
+
+/* sad mouth */
+
+.bunny.sad .mouth{
+
+    border-bottom:0;
+
+    border-top:
+        3px solid #57313e;
+
+    border-radius:
+        50% 50% 0 0;
+
+}
+
+
+/* body */
+
+.body{
+
+    position:absolute;
+
+    left:50%;
+    bottom:-80px;
+
+    transform:
+        translateX(-50%);
+
+    width:180px;
+    height:120px;
+
+    border-radius:
+        50%
+        50%
+        35%
+        35%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff,
+            #f7e9ee
+        );
+
+}
+
+
+/* paws */
+
+.paw{
+
+    position:absolute;
+
+    width:65px;
+    height:48px;
+
+    bottom:-10px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:
+        0 10px 20px
+        rgba(100,40,60,.1);
+
+}
+
+.paw.left{
+
+    left:-20px;
+
+    transform:
+        rotate(20deg);
+
+}
+
+.paw.right{
+
+    right:-20px;
+
+    transform:
+        rotate(-20deg);
+
+}
+
+
+/* flower held by bunny */
+
+.bunny-flower{
+
+    position:absolute;
+
+    right:-25px;
+
+    top:150px;
+
+    z-index:20;
+
+    transform:
+        rotate(-15deg);
+
+    display:none;
+
+}
+
+.bunny.has-flower .bunny-flower{
+    display:block;
+}
+
+
+/* =========================================================
+   FLOWER
+========================================================= */
+
+.flower{
+
+    position:relative;
+
+    width:45px;
+    height:45px;
+
+}
+
+.flower-petal{
+
+    position:absolute;
+
+    width:24px;
+    height:24px;
+
+    border-radius:50%;
+
+    background:
+        #ff7195;
+
+}
+
+.flower-petal:nth-child(1){
+    left:10px;
+    top:0;
+}
+
+.flower-petal:nth-child(2){
+    left:0;
+    top:10px;
+}
+
+.flower-petal:nth-child(3){
+    right:0;
+    top:10px;
+}
+
+.flower-petal:nth-child(4){
+    left:10px;
+    bottom:0;
+}
+
+.flower-center{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:15px;
+    height:15px;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:#ffd166;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.choice-buttons{
+
+    position:relative;
+
+    z-index:30;
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    margin-top:10px;
+
+}
+
+.choice{
+
+    min-width:180px;
+
+    padding:16px 25px;
+
+    border-radius:999px;
+
+    border:0;
+
+    cursor:pointer;
+
+    font-weight:800;
+
+    transition:
+        .35s
+        cubic-bezier(.22,1,.36,1);
+
+}
+
+.yes{
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff6b9a,
+            #e94878
+        );
+
+    box-shadow:
+        0 12px 30px
+        rgba(233,72,120,.25);
+
+}
+
+.no{
+
+    color:#684755;
+
+    background:#fff;
+
+    border:
+        1px solid
+        #f1dce4;
+
+}
+
+.choice:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.03);
+
+}
+
+
+/* =========================================================
+   FLOWERS GROUND
+========================================================= */
+
+.flower-garden{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+    right:0;
+
+    height:120px;
+
+    pointer-events:none;
+
+}
+
+.growing-flower{
+
+    position:absolute;
+
+    bottom:0;
+
+    transform-origin:bottom;
+
+    animation:
+        flowerGrow
+        .8s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+
+}
+
+.growing-flower .stem{
+
+    width:5px;
+    height:80px;
+
+    background:#69a66d;
+
+    border-radius:10px;
+
+    margin:auto;
+
+}
+
+.growing-flower .head{
+
+    position:absolute;
+
+    bottom:65px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    background:#ff7195;
+
+    box-shadow:
+        -13px 0 #ff7195,
+        13px 0 #ff7195,
+        0 -13px #ff7195,
+        0 13px #ff7195;
+
+}
+
+.growing-flower .center{
+
+    position:absolute;
+
+    bottom:75px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:16px;
+    height:16px;
+
+    border-radius:50%;
+
+    background:#ffd166;
+
+    z-index:2;
+
+}
+
+@keyframes flowerGrow{
+
+    from{
+        transform:
+            scaleY(0)
+            rotate(-5deg);
+    }
+
+    to{
+        transform:
+            scaleY(1)
+            rotate(0);
+    }
+
+}
+
+
+/* =========================================================
+   GIFT SCREEN
+========================================================= */
+
+.gift-screen{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    gap:20px;
+
+}
+
+.gift-title{
+
+    font-size:
+        clamp(
+            2.5rem,
+            7vw,
+            5rem
+        );
+
+    line-height:1;
+
+    color:#6e3048;
+
+}
+
+.gift-subtitle{
+
+    color:var(--muted);
+
+    max-width:550px;
+
+    line-height:1.7;
+
+}
+
+
+/* =========================================================
+   GIFT BOX
+========================================================= */
+
+.gift-wrapper{
+
+    position:relative;
+
+    width:300px;
+    height:280px;
+
+    margin:20px auto;
+
+    cursor:pointer;
+
+}
+
+.gift{
+
+    position:absolute;
+
+    left:50%;
+    bottom:0;
+
+    transform:
+        translateX(-50%);
+
+    width:230px;
+    height:180px;
+
+}
+
+.gift-body{
+
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    width:100%;
+    height:145px;
+
+    border-radius:
+        0 0 18px 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7195,
+            #e94878
+        );
+
+    box-shadow:
+        0 30px 45px
+        rgba(130,30,60,.2);
+
+}
+
+.gift-lid{
+
+    position:absolute;
+
+    left:-10px;
+    top:15px;
+
+    width:250px;
+    height:55px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff91ad,
+            #f45880
+        );
+
+    z-index:4;
+
+    transition:
+        .8s
+        cubic-bezier(.22,1,.36,1);
+
+}
+
+.gift-ribbon-vertical{
+
+    position:absolute;
+
+    left:50%;
+    bottom:0;
+
+    transform:
+        translateX(-50%);
+
+    width:35px;
+    height:100%;
+
+    background:#ffd166;
+
+}
+
+.gift-ribbon-horizontal{
+
+    position:absolute;
+
+    left:0;
+    top:45px;
+
+    width:100%;
+    height:30px;
+
+    background:#ffd166;
+
+}
+
+.gift-bow{
+
+    position:absolute;
+
+    left:50%;
+    top:-25px;
+
+    transform:
+        translateX(-50%);
+
+    z-index:8;
+
+}
+
+.bow-left,
+.bow-right{
+
+    position:absolute;
+
+    width:65px;
+    height:45px;
+
+    border-radius:
+        50% 50% 10% 50%;
+
+    background:#ffd166;
+
+}
+
+.bow-left{
+
+    right:3px;
+
+    transform:
+        rotate(25deg);
+
+}
+
+.bow-right{
+
+    left:3px;
+
+    transform:
+        rotate(-25deg);
+
+}
+
+.bow-center{
+
+    position:absolute;
+
+    left:50%;
+    top:10px;
+
+    transform:
+        translateX(-50%);
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    background:#f4b942;
+
+    z-index:10;
+
+}
+
+.gift.open .gift-lid{
+
+    transform:
+        translateY(-100px)
+        rotate(-10deg);
+
+}
+
+
+/* =========================================================
+   FINAL SCREEN
+========================================================= */
+
+.final-screen{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    overflow:hidden;
+
+}
+
+.final-content{
+
+    position:relative;
+
+    z-index:10;
+
+}
+
+.final-kicker{
+
+    color:#ff7195;
+
+    font-weight:900;
+
+    letter-spacing:.2em;
+
+    text-transform:uppercase;
+
+    font-size:12px;
+
+}
+
+.final-title{
+
+    margin-top:20px;
+
+    font-size:
+        clamp(
+            3.5rem,
+            10vw,
+            8rem
+        );
+
+    line-height:.9;
+
+    letter-spacing:-.07em;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f81,
+            #e94878,
+            #9b5de5
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+
+}
+
+.final-message{
+
+    max-width:650px;
+
+    margin:30px auto 0;
+
+    color:#765b68;
+
+    line-height:1.9;
+
+    font-size:17px;
+
+}
+
+.restart{
+
+    margin-top:30px;
+
+    border:0;
+
+    background:white;
+
+    color:var(--pink-dark);
+
+    padding:14px 25px;
+
+    border-radius:999px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(100,30,60,.1);
+
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.particle{
+
+    position:fixed;
+
+    pointer-events:none;
+
+    z-index:1000;
+
+    animation:
+        particleFly
+        1.8s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+
+}
+
+@keyframes particleFly{
+
+    from{
+
+        opacity:1;
+
+        transform:
+            translate(0,0)
+            scale(1)
+            rotate(0);
+
+    }
+
+    to{
+
+        opacity:0;
+
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(.2)
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   FLOATING HEART
+========================================================= */
+
+.float-heart{
+
+    position:fixed;
+
+    bottom:-40px;
+
+    pointer-events:none;
+
+    z-index:2;
+
+    animation:
+        floatHeart
+        6s
+        linear
+        forwards;
+
+}
+
+@keyframes floatHeart{
+
+    from{
+
+        transform:
+            translateY(0)
+            rotate(0);
+
+        opacity:0;
+
+    }
+
+    15%{
+        opacity:.6;
+    }
+
+    to{
+
+        transform:
+            translateY(-110vh)
+            rotate(30deg);
+
+        opacity:0;
+
+    }
+
+}
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+.music{
+
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    width:50px;
+    height:50px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:white;
+
+    color:var(--pink-dark);
+
+    box-shadow:
+        0 10px 30px
+        rgba(100,30,60,.12);
+
+    cursor:pointer;
+
+    z-index:999;
+
+}
+
+
+/* =========================================================
+   TRANSITION
+========================================================= */
+
+.transition{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9fba,
+            #e94878,
+            #9b5de5
+        );
+
+    z-index:9999;
+
+    pointer-events:none;
+
+    transform:
+        translateY(100%);
+
+    transition:
+        .7s
+        cubic-bezier(.22,1,.36,1);
+
+}
+
+.transition.active{
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    .screen{
+        padding:20px;
+    }
+
+    .speech{
+        min-height:115px;
+        padding:22px;
+    }
+
+    .bunny-area{
+        transform:scale(.8);
+        margin-top:-10px;
+        margin-bottom:-30px;
+    }
+
+    .choice{
+        min-width:145px;
+        padding:14px 18px;
+    }
+
+    .ear.left{
+        left:70px;
+    }
+
+    .ear.right{
+        right:70px;
+    }
+
+    .flower-garden{
+        height:80px;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus-visible{
+
+    outline:
+        3px solid
+        #9b5de5;
+
+    outline-offset:4px;
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     BACKGROUND
+======================================================= -->
+
+<div class="background">
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+
+</div>
+
+
+<!-- =======================================================
+     TRANSITION
+======================================================= -->
+
+<div
+    class="transition"
+    id="transition"
+></div>
+
+
+<!-- =======================================================
+     APP
+======================================================= -->
+
+<div class="app">
+
+
+<!-- =======================================================
+     SCREEN 1
+======================================================= -->
+
+<section
+    class="screen intro active"
+    id="intro"
+>
+
+    <div class="intro-small">
+        ✦ A tiny surprise awaits ✦
+    </div>
+
+    <h1 class="intro-title">
+        Someone left<br>
+        you a surprise.
+    </h1>
+
+    <p class="intro-text">
+        But apparently, a very small bunny
+        has decided that you need to give
+        permission before you can see it. 🐰
+    </p>
+
+    <button
+        class="start-button"
+        id="startButton"
+    >
+        Meet the Bunny 🐰
+    </button>
+
+</section>
+
+
+<!-- =======================================================
+     SCREEN 2 — BUNNY
+======================================================= -->
+
+<section
+    class="screen bunny-screen"
+    id="bunnyScreen"
+>
+
+
+    <!-- SPEECH -->
+
+    <div
+        class="speech"
+        id="speech"
+    >
+
+        <div class="speech-name">
+            Little Bunny 🐰
+        </div>
+
+        <div
+            class="speech-text"
+            id="speechText"
+        >
+            Hi... um... I have something
+            for you. 🥺
+        </div>
+
+    </div>
+
+
+    <!-- BUNNY -->
+
+    <div class="bunny-area">
+
+
+        <div class="ear left"></div>
+
+        <div class="ear right"></div>
+
+
+        <div
+            class="bunny"
+            id="bunny"
+        >
+
+
+            <div class="eye left"></div>
+
+            <div class="eye right"></div>
+
+
+            <div class="cheek left"></div>
+
+            <div class="cheek right"></div>
+
+
+            <div class="nose"></div>
+
+            <div class="mouth"></div>
+
+
+            <div class="body">
+
+                <div class="paw left"></div>
+
+                <div class="paw right"></div>
+
+            </div>
+
+
+            <!-- FLOWER -->
+
+            <div class="bunny-flower">
+
+                <div class="flower">
+
+                    <div class="flower-petal"></div>
+                    <div class="flower-petal"></div>
+                    <div class="flower-petal"></div>
+                    <div class="flower-petal"></div>
+
+                    <div class="flower-center"></div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div
+        class="choice-buttons"
+        id="choiceButtons"
+    >
+
+        <button
+            class="choice yes"
+            id="yesButton"
+        >
+            Yes, show me! 💗
+        </button>
+
+        <button
+            class="choice no"
+            id="noButton"
+        >
+            No 🙈
+        </button>
+
+    </div>
+
+
+    <!-- FLOWERS -->
+
+    <div
+        class="flower-garden"
+        id="flowerGarden"
+    ></div>
+
+
+</section>
+
+
+<!-- =======================================================
+     SCREEN 3 — GIFT
+======================================================= -->
+
+<section
+    class="screen gift-screen"
+    id="giftScreen"
+>
+
+    <h1 class="gift-title">
+        You said yes! 🥹
+    </h1>
+
+    <p class="gift-subtitle">
+
+        The bunny has been protecting this
+        little gift the whole time.
+
+        <br>
+
+        Click it to open. 🎁
+
+    </p>
+
+
+    <div
+        class="gift-wrapper"
+        id="giftWrapper"
+    >
+
+        <div
+            class="gift"
+            id="gift"
+        >
+
+            <div class="gift-body">
+
+                <div class="gift-ribbon-vertical"></div>
+
+                <div class="gift-ribbon-horizontal"></div>
+
+            </div>
+
+
+            <div class="gift-lid">
+
+                <div class="gift-ribbon-horizontal"></div>
+
+            </div>
+
+
+            <div class="gift-bow">
+
+                <div class="bow-left"></div>
+
+                <div class="bow-right"></div>
+
+                <div class="bow-center"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <p
+        id="giftHint"
+        style="
+            color:#9b7180;
+            font-size:14px;
+        "
+    >
+        ✨ Something magical is inside...
+    </p>
+
+
+</section>
+
+
+<!-- =======================================================
+     SCREEN 4 — FINAL
+======================================================= -->
+
+<section
+    class="screen final-screen"
+    id="finalScreen"
+>
+
+
+    <div class="final-content">
+
+        <div class="final-kicker">
+            ✦ The surprise ✦
+        </div>
+
+
+        <h1 class="final-title">
+            Happy<br>
+            Birthday! 🎂
+        </h1>
+
+
+        <p class="final-message">
+
+            Today is your day.
+
+            <br><br>
+
+            I hope this new chapter brings
+            you beautiful memories,
+            unexpected happiness,
+            huge reasons to smile,
+            and little moments that make
+            ordinary days feel magical.
+
+            <br><br>
+
+            Keep dreaming.
+            Keep laughing.
+            Keep being wonderfully you. 💗
+
+            <br><br>
+
+            <strong>
+                You deserve a beautiful year ahead. ✨
+            </strong>
+
+        </p>
+
+
+        <button
+            class="restart"
+            id="restartButton"
+        >
+            See it again 🐰
+        </button>
+
+    </div>
+
+
+</section>
+
+
+</div>
+
+
+<!-- =======================================================
+     MUSIC
+======================================================= -->
+
+<button
+    class="music"
+    id="musicButton"
+    aria-label="Music"
+>
+    ♪
+</button>
+
+
+<!-- Optional music:
+     Put birthday.mp3 beside this HTML file,
+     then change src="" to src="birthday.mp3"
+-->
+
+<audio
+    id="music"
+    loop
+    src=""
+></audio>
+
+
+
+<script>
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const intro =
+    document.getElementById("intro");
+
+const bunnyScreen =
+    document.getElementById("bunnyScreen");
+
+const giftScreen =
+    document.getElementById("giftScreen");
+
+const finalScreen =
+    document.getElementById("finalScreen");
+
+const startButton =
+    document.getElementById("startButton");
+
+const yesButton =
+    document.getElementById("yesButton");
+
+const noButton =
+    document.getElementById("noButton");
+
+const speechText =
+    document.getElementById("speechText");
+
+const bunny =
+    document.getElementById("bunny");
+
+const flowerGarden =
+    document.getElementById("flowerGarden");
+
+const giftWrapper =
+    document.getElementById("giftWrapper");
+
+const gift =
+    document.getElementById("gift");
+
+const giftHint =
+    document.getElementById("giftHint");
+
+const restartButton =
+    document.getElementById("restartButton");
+
+const transition =
+    document.getElementById("transition");
+
+const musicButton =
+    document.getElementById("musicButton");
+
+const music =
+    document.getElementById("music");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let noCount = 0;
+
+let flowerCount = 0;
+
+let musicPlaying = false;
+
+
+/* =========================================================
+   SCREEN TRANSITION
+========================================================= */
+
+function showScreen(screen){
+
+    transition.classList.add("active");
+
+    setTimeout(()=>{
+
+        document
+            .querySelectorAll(".screen")
+            .forEach(item=>{
+                item.classList.remove("active");
+            });
+
+        screen.classList.add("active");
+
+        window.scrollTo(0,0);
+
+    },350);
+
+    setTimeout(()=>{
+
+        transition.classList.remove("active");
+
+    },700);
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+startButton.addEventListener(
+    "click",
+    ()=>{
+
+        showScreen(bunnyScreen);
+
+        setTimeout(()=>{
+
+            speechText.innerHTML =
+                "Hi... um... I have something for you. 🥺<br>" +
+                "But first, I need to ask you something.";
+
+        },600);
+
+        setTimeout(()=>{
+
+            speechText.innerHTML =
+                "Do you want to see your surprise? 💗";
+
+        },2200);
+
+    }
+);
+
+
+/* =========================================================
+   NO BUTTON
+========================================================= */
+
+noButton.addEventListener(
+    "click",
+    handleNo
+);
+
+
+function handleNo(){
+
+    noCount++;
+
+    bunny.classList.remove("happy");
+
+    bunny.classList.add("sad");
+
+
+    /* -----------------------------------------
+       NO #1
+    ----------------------------------------- */
+
+    if(noCount === 1){
+
+        speechText.innerHTML =
+            "Oh... okay. 🥺<br>" +
+            "I'll just wait here.";
+
+        addFlower();
+
+    }
+
+
+    /* -----------------------------------------
+       NO #2
+    ----------------------------------------- */
+
+    else if(noCount === 2){
+
+        speechText.innerHTML =
+            "Are you sure? 🥺<br>" +
+            "I brought you a little flower.";
+
+        addFlower();
+
+    }
+
+
+    /* -----------------------------------------
+       NO #3
+    ----------------------------------------- */
+
+    else if(noCount === 3){
+
+        speechText.innerHTML =
+            "I walked all the way here for this... 🌷<br>" +
+            "Maybe just one tiny yes?";
+
+        addFlower();
+
+    }
+
+
+    /* -----------------------------------------
+       NO #4
+    ----------------------------------------- */
+
+    else if(noCount === 4){
+
+        speechText.innerHTML =
+            "Okay... I'm not sad...<br>" +
+            "I'm just... emotionally watering the flowers. 😭🌷";
+
+        addFlower();
+
+        addFlower();
+
+    }
+
+
+    /* -----------------------------------------
+       NO #5
+    ----------------------------------------- */
+
+    else if(noCount === 5){
+
+        speechText.innerHTML =
+            "Last chance... 👉👈<br>" +
+            "The surprise really really wants to meet you.";
+
+        addFlower();
+
+    }
+
+
+    /* -----------------------------------------
+       MORE NO
+    ----------------------------------------- */
+
+    else{
+
+        speechText.innerHTML =
+            "Okay, okay! 😂<br>" +
+            "But the bunny vote is officially YES.";
+
+        yesButton.style.transform =
+            "scale(1.1)";
+
+        addFlower();
+
+    }
+
+
+    /* small bunny animation */
+
+    bunny.animate(
+        [
+            {
+                transform:
+                    "translateX(0)"
+            },
+            {
+                transform:
+                    "translateX(-8px)"
+            },
+            {
+                transform:
+                    "translateX(8px)"
+            },
+            {
+                transform:
+                    "translateX(0)"
+            }
+        ],
+        {
+            duration:450
+        }
+    );
+
+}
+
+
+/* =========================================================
+   YES BUTTON
+========================================================= */
+
+yesButton.addEventListener(
+    "click",
+    ()=>{
+
+        bunny.classList.remove("sad");
+
+        bunny.classList.add("happy");
+
+        speechText.innerHTML =
+            "YAYYYYY!!! 🥹💗<br>" +
+            "I knew you'd say yes!";
+
+        createParticles(
+            window.innerWidth/2,
+            window.innerHeight/2,
+            50
+        );
+
+        setTimeout(()=>{
+
+            showScreen(giftScreen);
+
+        },1700);
+
+    }
+);
+
+
+/* =========================================================
+   FLOWER
+========================================================= */
+
+function addFlower(){
+
+    flowerCount++;
+
+    if(
+        flowerCount > 12
+    ){
+        return;
+    }
+
+
+    const flower =
+        document.createElement("div");
+
+    flower.className =
+        "growing-flower";
+
+
+    const left =
+        4 +
+        Math.random()*92;
+
+
+    flower.style.left =
+        left + "%";
+
+
+    const scale =
+        .65 +
+        Math.random()*.7;
+
+
+    flower.style.transform =
+        `scale(${scale})`;
+
+
+    flower.innerHTML = `
+
+        <div class="head"></div>
+
+        <div class="center"></div>
+
+        <div class="stem"></div>
+
+    `;
+
+
+    flowerGarden.appendChild(
+        flower
+    );
+
+
+    createParticles(
+        Math.random()*window.innerWidth,
+        window.innerHeight-100,
+        5
+    );
+
+}
+
+
+/* =========================================================
+   GIFT CLICK
+========================================================= */
+
+giftWrapper.addEventListener(
+    "click",
+    ()=>{
+
+        if(
+            gift.classList.contains("open")
+        ){
+            return;
+        }
+
+        gift.classList.add("open");
+
+        giftHint.innerHTML =
+            "🎉 The surprise is opening...";
+
+        createParticles(
+            window.innerWidth/2,
+            window.innerHeight/2,
+            80
+        );
+
+
+        setTimeout(()=>{
+
+            showScreen(finalScreen);
+
+            createCelebration();
+
+        },1500);
+
+    }
+);
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+function createParticles(
+    x,
+    y,
+    amount
+){
+
+    const symbols=[
+        "♥",
+        "♡",
+        "✦",
+        "✧",
+        "✨",
+        "🌸"
+    ];
+
+
+    for(
+        let i=0;
+        i<amount;
+        i++
+    ){
+
+        const particle =
+            document.createElement("div");
+
+
+        particle.className =
+            "particle";
+
+
+        particle.textContent =
+            symbols[
+                Math.floor(
+                    Math.random()*
+                    symbols.length
+                )
+            ];
+
+
+        particle.style.left =
+            x + "px";
+
+
+        particle.style.top =
+            y + "px";
+
+
+        particle.style.fontSize =
+            10 +
+            Math.random()*25 +
+            "px";
+
+
+        particle.style.color =
+            [
+                "#ff7195",
+                "#e94878",
+                "#9b5de5",
+                "#ffd166"
+            ][
+                Math.floor(
+                    Math.random()*4
+                )
+            ];
+
+
+        particle.style
+            .setProperty(
+                "--x",
+                (
+                    (Math.random()-.5) *
+                    600
+                ) + "px"
+            );
+
+
+        particle.style
+            .setProperty(
+                "--y",
+                (
+                    (Math.random()-.5) *
+                    500
+                ) + "px"
+            );
+
+
+        document.body.appendChild(
+            particle
+        );
+
+
+        setTimeout(
+            ()=>{
+                particle.remove();
+            },
+            1900
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CELEBRATION
+========================================================= */
+
+function createCelebration(){
+
+    for(
+        let i=0;
+        i<100;
+        i++
+    ){
+
+        setTimeout(()=>{
+
+            const symbols=[
+                "♥",
+                "❤",
+                "♡",
+                "✦",
+                "✨",
+                "🌸"
+            ];
+
+
+            const heart =
+                document.createElement(
+                    "div"
+                );
+
+
+            heart.className =
+                "float-heart";
+
+
+            heart.textContent =
+                symbols[
+                    Math.floor(
+                        Math.random()*
+                        symbols.length
+                    )
+                ];
+
+
+            heart.style.left =
+                Math.random()*100 +
+                "%";
+
+
+            heart.style.fontSize =
+                15 +
+                Math.random()*30 +
+                "px";
+
+
+            heart.style.animationDuration =
+                4 +
+                Math.random()*4 +
+                "s";
+
+
+            document.body.appendChild(
+                heart
+            );
+
+
+            setTimeout(
+                ()=>{
+                    heart.remove();
+                },
+                8000
+            );
+
+        },i*50);
+
+    }
+
+}
+
+
+/* =========================================================
+   RANDOM FLOATING HEARTS
+========================================================= */
+
+setInterval(()=>{
+
+    const heart =
+        document.createElement("div");
+
+    heart.className =
+        "float-heart";
+
+    heart.textContent =
+        Math.random()>.5
+            ? "♡"
+            : "♥";
+
+    heart.style.left =
+        Math.random()*100 +
+        "%";
+
+    heart.style.fontSize =
+        10 +
+        Math.random()*20 +
+        "px";
+
+    heart.style.animationDuration =
+        6 +
+        Math.random()*5 +
+        "s";
+
+    document.body.appendChild(
+        heart
+    );
+
+    setTimeout(()=>{
+        heart.remove();
+    },11000);
+
+},900);
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+restartButton.addEventListener(
+    "click",
+    ()=>{
+
+        noCount=0;
+
+        flowerCount=0;
+
+        flowerGarden.innerHTML="";
+
+        bunny.classList.remove(
+            "sad",
+            "happy",
+            "has-flower"
+        );
+
+        gift.classList.remove(
+            "open"
+        );
+
+        giftHint.innerHTML =
+            "✨ Something magical is inside...";
+
+        speechText.innerHTML =
+            "Hi... um... I have something for you. 🥺";
+
+        showScreen(intro);
+
+    }
+);
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+musicButton.addEventListener(
+    "click",
+    async()=>{
+
+        if(!music.src){
+            alert(
+                "Add your music file by changing src=\"\" to something like src=\"birthday.mp3\"."
+            );
+
+            return;
+        }
+
+
+        try{
+
+            if(!musicPlaying){
+
+                await music.play();
+
+                musicPlaying=true;
+
+                musicButton.textContent="♫";
+
+            }else{
+
+                music.pause();
+
+                musicPlaying=false;
+
+                musicButton.textContent="♪";
+
+            }
+
+        }catch(error){
+
+            console.log(error);
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   GIFT KEYBOARD ACCESS
+========================================================= */
+
+giftWrapper.setAttribute(
+    "tabindex",
+    "0"
+);
+
+giftWrapper.addEventListener(
+    "keydown",
+    event=>{
+
+        if(
+            event.key==="Enter" ||
+            event.key===" "
+        ){
+
+            event.preventDefault();
+
+            giftWrapper.click();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   BUTTON MICRO INTERACTION
+========================================================= */
+
+document
+    .querySelectorAll("button")
+    .forEach(button=>{
+
+        button.addEventListener(
+            "click",
+            ()=>{
+
+                button.animate(
+                    [
+                        {
+                            transform:
+                                "scale(1)"
+                        },
+                        {
+                            transform:
+                                "scale(.94)"
+                        },
+                        {
+                            transform:
+                                "scale(1)"
+                        }
+                    ],
+                    {
+                        duration:180
+                    }
+                );
+
+            }
+        );
+
+    });
+
+</script>
+
+</body>
+</html>
