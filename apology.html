@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Very Special Proposal 💖</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle, #2d0b1e 0%, #1a0511 60%, #000000 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* Floating Background Stickers */
+    .bg-sticker {
+      position: absolute;
+      font-size: 2.5rem;
+      opacity: 0.25;
+      user-select: none;
+      animation: floatAround 5s ease-in-out infinite alternate;
+      z-index: 1;
+    }
+    @keyframes floatAround {
+      from { transform: translateY(0px) rotate(-10deg) scale(0.9); }
+      to { transform: translateY(-25px) rotate(15deg) scale(1.1); }
+    }
+
+    /* Fullscreen Page Sections */
+    .page-section {
+      width: 100vw;
+      min-height: 100vh;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .page-section.active {
+      display: flex;
+      animation: elasticPop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    }
+
+    @keyframes elasticPop {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin: 1rem 0;
+      color: #ff758c;
+      text-shadow: 0 0 12px rgba(255, 117, 140, 0.8);
+    }
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #ff8fa3;
+      text-shadow: 0 0 10px rgba(255, 143, 163, 0.6);
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 80px;
+      margin-top: 15px;
+    }
+
+    button {
+      padding: 14px 32px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+    }
+
+    .btn-yes { background: linear-gradient(45deg, #ff4757, #ff6b81); color: white; }
+    .btn-no { background-color: #ffffff; color: #495057; border: 2px solid #ced4da; }
+
+    /* Mascot Bounce */
+    .mascot-container {
+      width: 180px;
+      height: 180px;
+      animation: heartbeatMascot 1.8s infinite ease-in-out;
+      filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.6));
+    }
+    @keyframes heartbeatMascot {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.1) rotate(-3deg); }
+      30% { transform: scale(0.95) rotate(3deg); }
+      45% { transform: scale(1.05); }
+    }
+
+    /* Heart Tree */
+    .tree-wrapper {
+      position: relative;
+      width: 280px;
+      height: 250px;
+      margin-bottom: 1rem;
+    }
+    .trunk {
+      position: absolute;
+      bottom: 0;
+      left: 130px;
+      width: 22px;
+      height: 100px;
+      background: linear-gradient(to right, #6f4e37, #8b5a2b);
+      border-radius: 10px;
+    }
+    .heart-leaf {
+      position: absolute;
+      font-size: 1.8rem;
+      animation: blossomHeart 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      opacity: 0;
+      filter: drop-shadow(0 0 8px rgba(255, 51, 102, 0.8));
+    }
+    @keyframes blossomHeart {
+      0% { opacity: 0; transform: scale(0) rotate(-30deg); }
+      100% { opacity: 1; transform: scale(1.2) rotate(0deg); }
+    }
+
+    /* 3D Flipping Love Cards */
+    .cards-grid {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 650px;
+      margin: 1.5rem 0;
+    }
+    .flip-card {
+      background-color: transparent;
+      width: 160px;
+      height: 190px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+      border-radius: 20px;
+    }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    .flip-card-front {
+      background: linear-gradient(135deg, #ff007f, #ff5252);
+      color: white;
+      font-size: 2.5rem;
+    }
+    .flip-card-back {
+      background: #ffffff;
+      color: #d6336c;
+      transform: rotateY(180deg);
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    /* Tic Tac Toe Grid */
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 1rem;
+      width: 240px;
+    }
+    .cell {
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      cursor: pointer;
+      border: 2px solid #ff758c;
+      box-shadow: 0 0 10px rgba(255, 117, 140, 0.3);
+    }
+
+    /* Loader */
+    .loader {
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid #ff4757;
+      border-radius: 50%;
+      width: 65px;
+      height: 65px;
+      animation: spin 0.8s linear infinite;
+      margin: 2rem 0;
+      box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* NEON BALLOONS (Spaced Out Grid) */
+    .balloon-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 35px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 2rem 0;
+    }
+    .balloon-slot {
+      width: 110px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .balloon-wrapper {
+      position: absolute;
+      cursor: pointer;
+      animation: floatNeon 3s ease-in-out infinite alternate;
+    }
+    .balloon-wrapper:nth-child(even) { animation-delay: 0.7s; }
+
+    @keyframes floatNeon {
+      from { transform: translateY(0px) rotate(-4deg); }
+      to { transform: translateY(-15px) rotate(4deg); }
+    }
+
+    /* Glow Color Varieties */
+    .b-pink .neon-balloon { background: radial-gradient(circle at 30% 30%, #ff9a9e, #ff0055); box-shadow: 0 0 25px #ff0055, inset 0 0 10px #ffffff; }
+    .b-cyan .neon-balloon { background: radial-gradient(circle at 30% 30%, #a1c4fd, #00d2ff); box-shadow: 0 0 25px #00d2ff, inset 0 0 10px #ffffff; }
+    .b-purple .neon-balloon { background: radial-gradient(circle at 30% 30%, #fbc2eb, #b5179e); box-shadow: 0 0 25px #b5179e, inset 0 0 10px #ffffff; }
+    .b-yellow .neon-balloon { background: radial-gradient(circle at 30% 30%, #ffecd2, #ffb703); box-shadow: 0 0 25px #ffb703, inset 0 0 10px #ffffff; }
+    .b-green .neon-balloon { background: radial-gradient(circle at 30% 30%, #d4fc79, #00f5d4); box-shadow: 0 0 25px #00f5d4, inset 0 0 10px #ffffff; }
+
+    .neon-balloon {
+      width: 75px;
+      height: 95px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      position: relative;
+    }
+    .neon-balloon::before {
+      content: '✨';
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .neon-balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 36px;
+      width: 2px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 5px #fff;
+    }
+
+    /* In-Place Burst Text */
+    .burst-word {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 30px #ff007f;
+      animation: burstPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      letter-spacing: 2px;
+    }
+    @keyframes burstPop {
+      0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+      100% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+    }
+
+    /* PERFECT RING CONTAINER */
+    .ring-container {
+      position: relative;
+      width: 220px;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1.5rem 0 0.5rem 0;
+    }
+
+    .svg-ring {
+      width: 100%;
+      height: 100%;
+    }
+
+    .ring-circle {
+      fill: none;
+      stroke: url(#gold-gradient);
+      stroke-width: 12;
+      stroke-linecap: round;
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      filter: drop-shadow(0 0 15px #ffd700);
+      transition: stroke-dashoffset 2.5s ease-in-out;
+    }
+
+    /* FIXED DIAMOND AT TOP APEX OF RING */
+    .sparkle-diamond {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      font-size: 3.2rem;
+      opacity: 0;
+      line-height: 1;
+      filter: drop-shadow(0 0 15px #00ffff) drop-shadow(0 0 30px #ffffff);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 5;
+    }
+
+    .hug-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 182, 193, 0.5);
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      color: #ffe3e8;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+      margin-top: 15px;
+      animation: pulseGlow 1.5s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      from { transform: scale(0.98); box-shadow: 0 0 15px rgba(255, 105, 180, 0.4); }
+      to { transform: scale(1.03); box-shadow: 0 0 30px rgba(255, 105, 180, 0.8); }
+    }
+
+    /* Flower & Heart Rain Effect */
+    .falling-item {
+      position: fixed;
+      top: -50px;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1000;
+      animation: fallDown linear infinite;
+    }
+    @keyframes fallDown {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-sticker" style="top: 8%; left: 6%;">🌸</div>
+  <div class="bg-sticker" style="top: 12%; right: 8%;">💖</div>
+  <div class="bg-sticker" style="bottom: 10%; left: 8%;">🧸</div>
+  <div class="bg-sticker" style="bottom: 8%; right: 6%;">🌹</div>
+
+  <div class="page-section active" id="page1">
+    <div class="mascot-container">
+      <svg viewBox="0 0 200 200" width="100%" height="100%">
+        <path d="M 35 25 C 35 15, 20 15, 20 28 C 20 40, 35 48, 35 52 C 35 48, 50 40, 50 28 C 50 15, 35 15, 35 25 Z" fill="#ff4d6d" />
+        <circle cx="55" cy="55" r="22" fill="#ffffff" stroke="#222" stroke-width="3"/>
+        <circle cx="55" cy="55" r="12" fill="#ffb3c1" />
+        <circle cx="145" cy="55" r="22" fill="#ffffff" stroke="#222" stroke-width="3"/>
+        <circle cx="145" cy="55" r="12" fill="#ffb3c1" />
+        <circle cx="100" cy="90" r="55" fill="#ffffff" stroke="#222" stroke-width="3"/>
+        <circle cx="80" cy="85" r="5" fill="#222"/>
+        <circle cx="120" cy="85" r="5" fill="#222"/>
+        <ellipse cx="100" cy="95" rx="6" ry="4" fill="#222"/>
+        <circle cx="70" cy="95" r="8" fill="#ffccd5" opacity="0.8"/>
+        <circle cx="130" cy="95" r="8" fill="#ffccd5" opacity="0.8"/>
+        <circle cx="60" cy="145" r="18" fill="#ffffff" stroke="#222" stroke-width="3"/>
+        <circle cx="140" cy="145" r="18" fill="#ffffff" stroke="#222" stroke-width="3"/>
+        <polygon points="65,120 135,120 115,185 85,185" fill="#a4133c" stroke="#222" stroke-width="2"/>
+        <circle cx="85" cy="115" r="12" fill="#ff4d6d"/>
+        <circle cx="100" cy="108" r="14" fill="#c9184a"/>
+        <circle cx="115" cy="115" r="12" fill="#ff4d6d"/>
+        <circle cx="92" cy="125" r="11" fill="#800f2f"/>
+        <circle cx="108" cy="125" r="11" fill="#c9184a"/>
+        <polygon points="100,160 85,150 85,170" fill="#ff4d6d"/>
+        <polygon points="100,160 115,150 115,170" fill="#ff4d6d"/>
+        <circle cx="100" cy="160" r="5" fill="#a4133c"/>
+      </svg>
+    </div>
+    <h1>Hey Sweetie! Do you have a quick minute for me? ✨</h1>
+    <div class="btn-container">
+      <button class="btn-yes" id="p1-yes" onclick="nextPage(2)">Yes! 💕</button>
+      <button class="btn-no" id="p1-no" onclick="shrinkNo('p1')">No 🙈</button>
+    </div>
+  </div>
+
+  <div class="page-section" id="page2">
+    <div class="tree-wrapper" id="tree"><div class="trunk"></div></div>
+    <h2>I knew you'd make time for me! 🥰</h2>
+    <button class="btn-yes" onclick="nextPage(3)">Next Secret ➔</button>
+  </div>
+
+  <div class="page-section" id="page3">
+    <h2>Tap to flip all 3 Love Cards! 💌</h2>
+    <div class="cards-grid">
+      <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">💌</div>
+          <div class="flip-card-back">Every moment with you is pure magic! ✨</div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">💖</div>
+          <div class="flip-card-back">You make my heart smile every single day! 😊</div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">🌹</div>
+          <div class="flip-card-back">I fall for you more and more every second! 💫</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-yes" id="card-next-btn" style="display: none;" onclick="nextPage(4)">Play Game ➔</button>
+  </div>
+
+  <div class="page-section" id="page4">
+    <h2>You MUST win this game to move forward! 💕</h2>
+    <p style="font-size: 1rem; margin-bottom: 12px; color: #ffb6c1;" id="game-status">You are 💖. Make your move!</p>
+    <div class="board" id="board">
+      <div class="cell" onclick="playMove(this, 0)"></div>
+      <div class="cell" onclick="playMove(this, 1)"></div>
+      <div class="cell" onclick="playMove(this, 2)"></div>
+      <div class="cell" onclick="playMove(this, 3)"></div>
+      <div class="cell" onclick="playMove(this, 4)"></div>
+      <div class="cell" onclick="playMove(this, 5)"></div>
+      <div class="cell" onclick="playMove(this, 6)"></div>
+      <div class="cell" onclick="playMove(this, 7)"></div>
+      <div class="cell" onclick="playMove(this, 8)"></div>
+    </div>
+  </div>
+
+  <div class="page-section" id="page5">
+    <h2 id="nervous-text">Wait... my hands are shaking...</h2>
+    <div class="loader"></div>
+  </div>
+
+  <div class="page-section" id="page6">
+    <h2>Pop the glowing balloons! 🎈✨</h2>
+    <div class="balloon-grid">
+      <div class="balloon-slot">
+        <div class="balloon-wrapper b-pink" onclick="popInPlace(this, 'WILL')">
+          <div class="neon-balloon"></div>
+        </div>
+      </div>
+      <div class="balloon-slot">
+        <div class="balloon-wrapper b-cyan" onclick="popInPlace(this, 'YOU')">
+          <div class="neon-balloon"></div>
+        </div>
+      </div>
+      <div class="balloon-slot">
+        <div class="balloon-wrapper b-purple" onclick="popInPlace(this, 'BE')">
+          <div class="neon-balloon"></div>
+        </div>
+      </div>
+      <div class="balloon-slot">
+        <div class="balloon-wrapper b-yellow" onclick="popInPlace(this, 'MY')">
+          <div class="neon-balloon"></div>
+        </div>
+      </div>
+      <div class="balloon-slot">
+        <div class="balloon-wrapper b-green" onclick="popInPlace(this, 'FOREVER?')">
+          <div class="neon-balloon"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-container" id="p6-buttons" style="display: none;">
+      <button class="btn-yes" id="p6-yes" onclick="startFinalCeremony()">YES! 💖</button>
+      <button class="btn-no" id="p6-no" onclick="shrinkNo('p6')">No 🥺</button>
+    </div>
+  </div>
+
+  <div class="page-section" id="page7">
+    <h1 id="love-header" style="opacity: 0; transform: scale(0.5); transition: all 1s ease-in-out; font-size: 2.3rem;">I LOVE YOU FOREVER! 💖🌹</h1>
+    
+    <div class="ring-container">
+      <div id="ringDiamond" class="sparkle-diamond">💎</div>
+      <svg class="svg-ring" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fff099" />
+            <stop offset="50%" stop-color="#ffd700" />
+            <stop offset="100%" stop-color="#e6a100" />
+          </linearGradient>
+        </defs>
+        <circle id="ringCircle" class="ring-circle" cx="100" cy="115" r="75"></circle>
+      </svg>
+    </div>
+
+    <div id="virtualHug" class="hug-card" style="display: none;">
+      🤗 Sending you a Big Warm Virtual Hug! 🤗
+    </div>
+  </div>
+
+  <script>
+    let p1YesScale = 1, p1NoScale = 1;
+    let p6YesScale = 1, p6NoScale = 1;
+
+    function shrinkNo(page) {
+      if (page === 'p1') {
+        p1NoScale = Math.max(0.1, p1NoScale - 0.25);
+        p1YesScale += 0.35;
+        document.getElementById('p1-no').style.transform = `scale(${p1NoScale})`;
+        document.getElementById('p1-yes').style.transform = `scale(${p1YesScale})`;
+      } else if (page === 'p6') {
+        p6NoScale = Math.max(0.1, p6NoScale - 0.25);
+        p6YesScale += 0.35;
+        document.getElementById('p6-no').style.transform = `scale(${p6NoScale})`;
+        document.getElementById('p6-yes').style.transform = `scale(${p6YesScale})`;
+      }
+    }
+
+    function nextPage(pageNum) {
+      document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+      document.getElementById(`page${pageNum}`).classList.add('active');
+
+      if (pageNum === 2) buildHeartTree();
+      if (pageNum === 5) startLoadingSequence();
+    }
+
+    /* Heart Tree */
+    function buildHeartTree() {
+      const tree = document.getElementById('tree');
+      const leaves = [
+        {x: 130, y: 80, e: '💖'}, {x: 90, y: 70, e: '🌸'}, {x: 170, y: 70, e: '🌹'},
+        {x: 60, y: 50, e: '💖'}, {x: 130, y: 40, e: '💕'}, {x: 190, y: 50, e: '💖'},
+        {x: 40, y: 25, e: '🌸'}, {x: 100, y: 15, e: '💖'}, {x: 150, y: 15, e: '🌹'},
+        {x: 210, y: 25, e: '🌸'}, {x: 130, y: -10, e: '💖'}
+      ];
+
+      leaves.forEach((pos, i) => {
+        setTimeout(() => {
+          const h = document.createElement('div');
+          h.className = 'heart-leaf';
+          h.innerHTML = pos.e;
+          h.style.left = pos.x + 'px';
+          h.style.top = pos.y + 'px';
+          tree.appendChild(h);
+        }, i * 120);
+      });
+    }
+
+    /* Flip Cards Handler */
+    let flippedCardsCount = 0;
+    function flipCard(cardEl) {
+      if (!cardEl.classList.contains('flipped')) {
+        cardEl.classList.add('flipped');
+        flippedCardsCount++;
+        if (flippedCardsCount === 3) {
+          setTimeout(() => {
+            document.getElementById('card-next-btn').style.display = 'inline-block';
+          }, 500);
+        }
+      }
+    }
+
+    /* Tic Tac Toe Logic */
+    let boardState = ["", "", "", "", "", "", "", "", ""];
+    const winCombos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+    function playMove(cell, index) {
+      if (boardState[index] !== "") return;
+      
+      boardState[index] = "💖";
+      cell.innerHTML = "💖";
+
+      if (checkWin("💖")) {
+        document.getElementById('game-status').innerText = "You Won! Proceeding... 💕";
+        setTimeout(() => nextPage(5), 1000);
+        return;
+      }
+
+      if (!boardState.includes("")) {
+        document.getElementById('game-status').innerText = "Tie! Try again to win 💕";
+        setTimeout(resetGame, 1200);
+        return;
+      }
+
+      setTimeout(computerMove, 300);
+    }
+
+    function computerMove() {
+      let move = findBestMove("🌸") ?? findBestMove("💖") ?? (boardState[4] === "" ? 4 : null);
+      
+      if (move === null) {
+        let empty = boardState.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+        move = empty[Math.floor(Math.random() * empty.length)];
+      }
+
+      boardState[move] = "🌸";
+      document.querySelectorAll('.cell')[move].innerHTML = "🌸";
+
+      if (checkWin("🌸")) {
+        document.getElementById('game-status').innerText = "CPU won! You must win to continue! Resetting...";
+        setTimeout(resetGame, 1500);
+      }
+    }
+
+    function findBestMove(player) {
+      for (let combo of winCombos) {
+        let values = combo.map(i => boardState[i]);
+        if (values.filter(v => v === player).length === 2 && values.includes("")) {
+          return combo[values.indexOf("")];
+        }
+      }
+      return null;
+    }
+
+    function checkWin(player) {
+      return winCombos.some(c => c.every(i => boardState[i] === player));
+    }
+
+    function resetGame() {
+      boardState = ["", "", "", "", "", "", "", "", ""];
+      document.querySelectorAll('.cell').forEach(c => c.innerHTML = "");
+      document.getElementById('game-status').innerText = "You are 💖. Make your move!";
+    }
+
+    /* Loading Sequence */
+    function startLoadingSequence() {
+      const messages = [
+        "I'm getting so nervous...",
+        "I don't know how you'll react...",
+        "My heart is beating so fast...",
+        "Okay... deep breath...",
+        "Here goes everything..."
+      ];
+      let i = 0;
+      const textEl = document.getElementById('nervous-text');
+      const timer = setInterval(() => {
+        i++;
+        if (i < messages.length) {
+          textEl.innerText = messages[i];
+        } else {
+          clearInterval(timer);
+          nextPage(6);
+        }
+      }, 1400);
+    }
+
+    /* In-Place Balloon Pop */
+    let poppedBalloons = 0;
+    function popInPlace(balloonEl, word) {
+      const slot = balloonEl.parentElement;
+      balloonEl.remove();
+
+      const wordDiv = document.createElement('div');
+      wordDiv.className = 'burst-word';
+      wordDiv.innerText = word;
+      slot.appendChild(wordDiv);
+
+      poppedBalloons++;
+      if (poppedBalloons === 5) {
+        setTimeout(() => {
+          document.getElementById('p6-buttons').style.display = 'flex';
+        }, 600);
+      }
+    }
+
+    /* Final Ceremony: Love Text -> Ray Ring Circle -> Diamond -> Virtual Hug + Flower Rain */
+    function startFinalCeremony() {
+      nextPage(7);
+      
+      // Step 1: Write "I LOVE YOU FOREVER!" first
+      setTimeout(() => {
+        const loveHeader = document.getElementById('love-header');
+        loveHeader.style.opacity = '1';
+        loveHeader.style.transform = 'scale(1)';
+      }, 300);
+
+      // Step 2: Draw Golden Ring Circle
+      setTimeout(() => {
+        document.getElementById('ringCircle').style.strokeDashoffset = '0';
+      }, 1500);
+
+      // Step 3: Fit Diamond Perfectly on Top Apex of Ring
+      setTimeout(() => {
+        const diamond = document.getElementById('ringDiamond');
+        diamond.style.opacity = '1';
+        diamond.style.transform = 'translateX(-50%) scale(1)';
+      }, 3800);
+
+      // Step 4: Show Virtual Hug & Trigger Flower Rain
+      setTimeout(() => {
+        document.getElementById('virtualHug').style.display = 'block';
+        startFlowerRain();
+      }, 4800);
+    }
+
+    /* Flower and Heart Rain Effect */
+    function startFlowerRain() {
+      const items = ['🌸', '🌹', '💖', '🌺', '✨', '💕'];
+      setInterval(() => {
+        const item = document.createElement('div');
+        item.className = 'falling-item';
+        item.innerHTML = items[Math.floor(Math.random() * items.length)];
+        item.style.left = Math.random() * 100 + 'vw';
+        item.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
+        item.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        document.body.appendChild(item);
+
+        setTimeout(() => item.remove(), 5000);
+      }, 200);
+    }
+  </script>
+</body>
+</html>
