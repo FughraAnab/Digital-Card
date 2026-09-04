@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>A Very Special Proposal 💖</title>
   <style>
     * {
@@ -10,6 +10,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -18,7 +19,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      overflow-x: hidden;
       color: #fff;
     }
 
@@ -30,6 +31,7 @@
       user-select: none;
       animation: floatAround 5s ease-in-out infinite alternate;
       z-index: 1;
+      pointer-events: none;
     }
     @keyframes floatAround {
       from { transform: translateY(0px) rotate(-10deg) scale(0.9); }
@@ -44,7 +46,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem;
       position: absolute;
       top: 0;
       left: 0;
@@ -63,31 +65,31 @@
     }
 
     h1 {
-      font-size: 2.2rem;
-      margin: 1rem 0;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      margin: 0.8rem 0;
       color: #ff758c;
       text-shadow: 0 0 12px rgba(255, 117, 140, 0.8);
     }
     h2 {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      margin-bottom: 0.8rem;
       color: #ff8fa3;
       text-shadow: 0 0 10px rgba(255, 143, 163, 0.6);
     }
 
     .btn-container {
       display: flex;
-      gap: 20px;
+      gap: 15px;
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 80px;
+      min-height: 70px;
       margin-top: 15px;
     }
 
     button {
-      padding: 14px 32px;
-      font-size: 1.2rem;
+      padding: 12px 28px;
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
       font-weight: bold;
       border: none;
       border-radius: 50px;
@@ -101,8 +103,8 @@
 
     /* Mascot Bounce */
     .mascot-container {
-      width: 180px;
-      height: 180px;
+      width: clamp(130px, 35vw, 180px);
+      height: clamp(130px, 35vw, 180px);
       animation: heartbeatMascot 1.8s infinite ease-in-out;
       filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.6));
     }
@@ -116,22 +118,22 @@
     /* Heart Tree */
     .tree-wrapper {
       position: relative;
-      width: 280px;
-      height: 250px;
+      width: 240px;
+      height: 220px;
       margin-bottom: 1rem;
     }
     .trunk {
       position: absolute;
       bottom: 0;
-      left: 130px;
-      width: 22px;
-      height: 100px;
+      left: 110px;
+      width: 20px;
+      height: 90px;
       background: linear-gradient(to right, #6f4e37, #8b5a2b);
       border-radius: 10px;
     }
     .heart-leaf {
       position: absolute;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       animation: blossomHeart 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       opacity: 0;
       filter: drop-shadow(0 0 8px rgba(255, 51, 102, 0.8));
@@ -141,20 +143,23 @@
       100% { opacity: 1; transform: scale(1.2) rotate(0deg); }
     }
 
-    /* 3D Flipping Love Cards */
+    /* 3D FLIPPING LOVE CARDS (Glitches Fixed) */
     .cards-grid {
       display: flex;
-      gap: 20px;
+      gap: 12px;
       justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
-      max-width: 650px;
-      margin: 1.5rem 0;
+      width: 100%;
+      max-width: 500px;
+      margin: 1rem 0;
     }
     .flip-card {
       background-color: transparent;
-      width: 160px;
-      height: 190px;
+      width: 130px;
+      height: 160px;
       perspective: 1000px;
+      -webkit-perspective: 1000px;
       cursor: pointer;
     }
     .flip-card-inner {
@@ -164,11 +169,14 @@
       text-align: center;
       transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
       transform-style: preserve-3d;
-      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
-      border-radius: 20px;
+      -webkit-transform-style: preserve-3d;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+      border-radius: 16px;
+      transform: translateZ(0);
     }
     .flip-card.flipped .flip-card-inner {
       transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
     }
     .flip-card-front, .flip-card-back {
       position: absolute;
@@ -176,43 +184,45 @@
       height: 100%;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      border-radius: 20px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px;
+      padding: 10px;
       border: 2px solid rgba(255, 255, 255, 0.3);
     }
     .flip-card-front {
       background: linear-gradient(135deg, #ff007f, #ff5252);
       color: white;
-      font-size: 2.5rem;
+      font-size: 2.2rem;
     }
     .flip-card-back {
       background: #ffffff;
       color: #d6336c;
       transform: rotateY(180deg);
-      font-size: 1rem;
+      -webkit-transform: rotateY(180deg);
+      font-size: 0.85rem;
       font-weight: bold;
+      line-height: 1.2;
     }
 
     /* Tic Tac Toe Grid */
     .board {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 1rem;
-      width: 240px;
+      width: 210px;
     }
     .cell {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       cursor: pointer;
       border: 2px solid #ff758c;
       box-shadow: 0 0 10px rgba(255, 117, 140, 0.3);
@@ -220,13 +230,13 @@
 
     /* Loader */
     .loader {
-      border: 6px solid rgba(255, 255, 255, 0.2);
-      border-top: 6px solid #ff4757;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top: 5px solid #ff4757;
       border-radius: 50%;
-      width: 65px;
-      height: 65px;
+      width: 55px;
+      height: 55px;
       animation: spin 0.8s linear infinite;
-      margin: 2rem 0;
+      margin: 1.5rem 0;
       box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -236,14 +246,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 35px;
+      gap: 15px;
       flex-wrap: wrap;
-      max-width: 800px;
-      margin: 2rem 0;
+      max-width: 100%;
+      margin: 1rem 0;
     }
     .balloon-slot {
-      width: 110px;
-      height: 140px;
+      width: 85px;
+      height: 110px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -258,64 +268,64 @@
 
     @keyframes floatNeon {
       from { transform: translateY(0px) rotate(-4deg); }
-      to { transform: translateY(-15px) rotate(4deg); }
+      to { transform: translateY(-12px) rotate(4deg); }
     }
 
     /* Glow Color Varieties */
-    .b-pink .neon-balloon { background: radial-gradient(circle at 30% 30%, #ff9a9e, #ff0055); box-shadow: 0 0 25px #ff0055, inset 0 0 10px #ffffff; }
-    .b-cyan .neon-balloon { background: radial-gradient(circle at 30% 30%, #a1c4fd, #00d2ff); box-shadow: 0 0 25px #00d2ff, inset 0 0 10px #ffffff; }
-    .b-purple .neon-balloon { background: radial-gradient(circle at 30% 30%, #fbc2eb, #b5179e); box-shadow: 0 0 25px #b5179e, inset 0 0 10px #ffffff; }
-    .b-yellow .neon-balloon { background: radial-gradient(circle at 30% 30%, #ffecd2, #ffb703); box-shadow: 0 0 25px #ffb703, inset 0 0 10px #ffffff; }
-    .b-green .neon-balloon { background: radial-gradient(circle at 30% 30%, #d4fc79, #00f5d4); box-shadow: 0 0 25px #00f5d4, inset 0 0 10px #ffffff; }
+    .b-pink .neon-balloon { background: radial-gradient(circle at 30% 30%, #ff9a9e, #ff0055); box-shadow: 0 0 20px #ff0055, inset 0 0 8px #ffffff; }
+    .b-cyan .neon-balloon { background: radial-gradient(circle at 30% 30%, #a1c4fd, #00d2ff); box-shadow: 0 0 20px #00d2ff, inset 0 0 8px #ffffff; }
+    .b-purple .neon-balloon { background: radial-gradient(circle at 30% 30%, #fbc2eb, #b5179e); box-shadow: 0 0 20px #b5179e, inset 0 0 8px #ffffff; }
+    .b-yellow .neon-balloon { background: radial-gradient(circle at 30% 30%, #ffecd2, #ffb703); box-shadow: 0 0 20px #ffb703, inset 0 0 8px #ffffff; }
+    .b-green .neon-balloon { background: radial-gradient(circle at 30% 30%, #d4fc79, #00f5d4); box-shadow: 0 0 20px #00f5d4, inset 0 0 8px #ffffff; }
 
     .neon-balloon {
-      width: 75px;
-      height: 95px;
+      width: 60px;
+      height: 78px;
       border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
       position: relative;
     }
     .neon-balloon::before {
       content: '✨';
       position: absolute;
-      top: 5px;
-      right: 10px;
-      font-size: 0.9rem;
+      top: 4px;
+      right: 8px;
+      font-size: 0.75rem;
       opacity: 0.8;
     }
     .neon-balloon::after {
       content: '';
       position: absolute;
-      bottom: -15px;
-      left: 36px;
+      bottom: -12px;
+      left: 29px;
       width: 2px;
-      height: 22px;
+      height: 18px;
       background: rgba(255, 255, 255, 0.6);
-      box-shadow: 0 0 5px #fff;
+      box-shadow: 0 0 4px #fff;
     }
 
     /* In-Place Burst Text */
     .burst-word {
-      font-size: 1.5rem;
+      font-size: 1.1rem;
       font-weight: 900;
       color: #fff;
-      text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 30px #ff007f;
+      text-shadow: 0 0 8px #ff007f, 0 0 16px #ff007f;
       animation: burstPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
     @keyframes burstPop {
       0% { transform: scale(0) rotate(-15deg); opacity: 0; }
-      100% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+      100% { transform: scale(1.1) rotate(0deg); opacity: 1; }
     }
 
     /* PERFECT RING CONTAINER */
     .ring-container {
       position: relative;
-      width: 220px;
-      height: 250px;
+      width: 180px;
+      height: 200px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 1.5rem 0 0.5rem 0;
+      margin: 1rem 0 0.5rem 0;
     }
 
     .svg-ring {
@@ -330,20 +340,20 @@
       stroke-linecap: round;
       stroke-dasharray: 600;
       stroke-dashoffset: 600;
-      filter: drop-shadow(0 0 15px #ffd700);
+      filter: drop-shadow(0 0 12px #ffd700);
       transition: stroke-dashoffset 2.5s ease-in-out;
     }
 
     /* FIXED DIAMOND AT TOP APEX OF RING */
     .sparkle-diamond {
       position: absolute;
-      top: 10px;
+      top: 5px;
       left: 50%;
       transform: translateX(-50%) scale(0);
-      font-size: 3.2rem;
+      font-size: 2.8rem;
       opacity: 0;
       line-height: 1;
-      filter: drop-shadow(0 0 15px #00ffff) drop-shadow(0 0 30px #ffffff);
+      filter: drop-shadow(0 0 12px #00ffff) drop-shadow(0 0 25px #ffffff);
       transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       z-index: 5;
     }
@@ -352,12 +362,12 @@
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
       border: 2px solid rgba(255, 182, 193, 0.5);
-      padding: 12px 25px;
+      padding: 10px 20px;
       border-radius: 30px;
-      font-size: 1.2rem;
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
       color: #ffe3e8;
       box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
-      margin-top: 15px;
+      margin-top: 10px;
       animation: pulseGlow 1.5s infinite alternate;
     }
     @keyframes pulseGlow {
@@ -365,7 +375,7 @@
       to { transform: scale(1.03); box-shadow: 0 0 30px rgba(255, 105, 180, 0.8); }
     }
 
-    /* Flower & Heart Rain Effect */
+    /* Flower and Heart Rain Effect */
     .falling-item {
       position: fixed;
       top: -50px;
@@ -378,14 +388,71 @@
       0% { transform: translateY(0) rotate(0deg); opacity: 1; }
       100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
     }
+
+    /* MEDIA QUERIES FOR SMALLER PHONES (e.g. Redmi 13C / ~360px-400px viewports) */
+    @media screen and (max-width: 480px) {
+      .cards-grid {
+        gap: 8px;
+      }
+      .flip-card {
+        width: 100px;
+        height: 135px;
+      }
+      .flip-card-front {
+        font-size: 1.8rem;
+      }
+      .flip-card-back {
+        font-size: 0.75rem;
+        padding: 6px;
+      }
+      .balloon-grid {
+        gap: 8px;
+      }
+      .balloon-slot {
+        width: 65px;
+        height: 90px;
+      }
+      .neon-balloon {
+        width: 48px;
+        height: 64px;
+      }
+      .neon-balloon::after {
+        left: 23px;
+        height: 14px;
+      }
+      .burst-word {
+        font-size: 0.85rem;
+      }
+      .ring-container {
+        width: 150px;
+        height: 170px;
+      }
+      .sparkle-diamond {
+        font-size: 2.2rem;
+        top: 2px;
+      }
+    }
+
+    @media screen and (max-width: 360px) {
+      .flip-card {
+        width: 90px;
+        height: 120px;
+      }
+      .balloon-slot {
+        width: 55px;
+      }
+      .burst-word {
+        font-size: 0.75rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="bg-sticker" style="top: 8%; left: 6%;">🌸</div>
-  <div class="bg-sticker" style="top: 12%; right: 8%;">💖</div>
-  <div class="bg-sticker" style="bottom: 10%; left: 8%;">🧸</div>
-  <div class="bg-sticker" style="bottom: 8%; right: 6%;">🌹</div>
+  <div class="bg-sticker" style="top: 8%; left: 4%;">🌸</div>
+  <div class="bg-sticker" style="top: 12%; right: 4%;">💖</div>
+  <div class="bg-sticker" style="bottom: 10%; left: 4%;">🧸</div>
+  <div class="bg-sticker" style="bottom: 8%; right: 4%;">🌹</div>
 
   <div class="page-section active" id="page1">
     <div class="mascot-container">
@@ -454,7 +521,7 @@
 
   <div class="page-section" id="page4">
     <h2>You MUST win this game to move forward! 💕</h2>
-    <p style="font-size: 1rem; margin-bottom: 12px; color: #ffb6c1;" id="game-status">You are 💖. Make your move!</p>
+    <p style="font-size: 0.95rem; margin-bottom: 12px; color: #ffb6c1;" id="game-status">You are 💖. Make your move!</p>
     <div class="board" id="board">
       <div class="cell" onclick="playMove(this, 0)"></div>
       <div class="cell" onclick="playMove(this, 1)"></div>
@@ -510,7 +577,7 @@
   </div>
 
   <div class="page-section" id="page7">
-    <h1 id="love-header" style="opacity: 0; transform: scale(0.5); transition: all 1s ease-in-out; font-size: 2.3rem;">I LOVE YOU FOREVER! 💖🌹</h1>
+    <h1 id="love-header" style="opacity: 0; transform: scale(0.5); transition: all 1s ease-in-out;">I LOVE YOU FOREVER! 💖🌹</h1>
     
     <div class="ring-container">
       <div id="ringDiamond" class="sparkle-diamond">💎</div>
@@ -560,11 +627,12 @@
     /* Heart Tree */
     function buildHeartTree() {
       const tree = document.getElementById('tree');
+      if (tree.children.length > 1) return; // Prevent duplicate generation
       const leaves = [
-        {x: 130, y: 80, e: '💖'}, {x: 90, y: 70, e: '🌸'}, {x: 170, y: 70, e: '🌹'},
-        {x: 60, y: 50, e: '💖'}, {x: 130, y: 40, e: '💕'}, {x: 190, y: 50, e: '💖'},
-        {x: 40, y: 25, e: '🌸'}, {x: 100, y: 15, e: '💖'}, {x: 150, y: 15, e: '🌹'},
-        {x: 210, y: 25, e: '🌸'}, {x: 130, y: -10, e: '💖'}
+        {x: 110, y: 70, e: '💖'}, {x: 75, y: 60, e: '🌸'}, {x: 145, y: 60, e: '🌹'},
+        {x: 50, y: 40, e: '💖'}, {x: 110, y: 30, e: '💕'}, {x: 165, y: 40, e: '💖'},
+        {x: 35, y: 20, e: '🌸'}, {x: 85, y: 10, e: '💖'}, {x: 130, y: 10, e: '🌹'},
+        {x: 180, y: 20, e: '🌸'}, {x: 110, y: -10, e: '💖'}
       ];
 
       leaves.forEach((pos, i) => {
@@ -696,7 +764,7 @@
       }
     }
 
-    /* Final Ceremony: Love Text -> Ray Ring Circle -> Diamond -> Virtual Hug + Flower Rain */
+    /* Final Ceremony */
     function startFinalCeremony() {
       nextPage(7);
       
@@ -734,12 +802,12 @@
         item.className = 'falling-item';
         item.innerHTML = items[Math.floor(Math.random() * items.length)];
         item.style.left = Math.random() * 100 + 'vw';
-        item.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
+        item.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
         item.style.animationDuration = (Math.random() * 3 + 2) + 's';
         document.body.appendChild(item);
 
         setTimeout(() => item.remove(), 5000);
-      }, 200);
+      }, 250);
     }
   </script>
 </body>
