@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Forever Love ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: #ff4b6e;
+            --secondary: #ff758c;
+            --bg-light: #fff0f3;
+            --bg-card: #ffffff;
+            --text-dark: #590d22;
+            --accent: #ff8fa3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Floating Background Hearts */
+        .heart-bg {
+            position: fixed;
+            top: -10vh;
+            font-size: 1.5rem;
+            color: rgba(255, 75, 110, 0.4);
+            animation: floatUp 8s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Responsive Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(255, 75, 110, 0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        nav a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Section Layouts */
+        section {
+            min-height: 100vh;
+            padding: 80px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Page 1: Hero Section */
+        #hero {
+            text-align: center;
+        }
+
+        .hero-sticker {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite ease-in-out;
+            filter: drop-shadow(0 10px 15px rgba(255, 75, 110, 0.3));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .hero-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            background: linear-gradient(45deg, #ff4b6e, #c9184a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s infinite alternate;
+        }
+
+        .btn {
+            margin-top: 25px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 75, 110, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 75, 110, 0.6);
+        }
+
+        /* Page 2: Flipping Cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 250px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner, .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .flip-card-front {
+            background: #ffffff;
+            border: 2px solid var(--accent);
+            color: var(--primary);
+        }
+
+        .flip-card-front span {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* Page 3: Gift Box Unwrapping */
+        .gift-box {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            background: var(--primary);
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            margin-top: 30px;
+            transition: transform 0.3s;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-ribbon-v {
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background: #fff;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .gift-ribbon-h {
+            position: absolute;
+            width: 100%;
+            height: 25px;
+            background: #fff;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .gift-lid {
+            position: absolute;
+            top: -10px;
+            left: -5px;
+            width: 150px;
+            height: 30px;
+            background: #ff2a55;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .gift-box.open .gift-lid {
+            transform: translateY(-60px) rotate(-15deg);
+        }
+
+        .gift-content {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s ease 0.3s;
+            text-align: center;
+            margin-top: 30px;
+            max-width: 400px;
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .gift-box.open + .gift-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Page 4: Love Letter */
+        .letter-container {
+            background: #fff;
+            background-image: radial-gradient(#ffccd5 1px, transparent 0);
+            background-size: 20px 20px;
+            padding: 35px;
+            border-radius: 15px;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(255, 75, 110, 0.15);
+            border: 1px solid #ffccd5;
+            position: relative;
+        }
+
+        .letter-container::before {
+            content: "💌";
+            font-size: 2.5rem;
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            transform: rotate(15deg);
+        }
+
+        .letter-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: left;
+        }
+
+        /* Page 5: Interactive Love Game */
+        .game-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            position: relative;
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        .btn-yes {
+            background: #2ec4b6;
+        }
+
+        .btn-no {
+            background: #e63946;
+            position: absolute;
+            transition: all 0.2s ease;
+        }
+
+        /* Page 6: Forever Promise & Counter */
+        .pulse-heart {
+            font-size: 5rem;
+            color: var(--primary);
+            animation: heartBeat 1.2s infinite ease-in-out;
+            margin: 20px 0;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            nav a { font-size: 0.75rem; padding: 4px 6px; }
+            .hero-title { font-size: 2.8rem; }
+            .title { font-size: 2.3rem; }
+            section { padding: 70px 15px 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Hearts -->
+    <div id="heart-container"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#hero">Home</a>
+        <a href="#cards">Reasons</a>
+        <a href="#gift">Gift</a>
+        <a href="#letter">Letter</a>
+        <a href="#game">Game</a>
+        <a href="#forever">Forever</a>
+    </nav>
+
+    <!-- Page 1: Hero Section -->
+    <section id="hero">
+        <svg class="hero-sticker" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#ff758c"/>
+            <path d="M50 30 C40 15, 15 25, 30 50 L50 75 L70 50 C85 25, 60 15, 50 30 Z" fill="#ffffff"/>
+            <circle cx="42" cy="38" r="3" fill="#ff4b6e"/>
+            <circle cx="58" cy="38" r="3" fill="#ff4b6e"/>
+            <path d="M 45 48 Q 50 53 55 48" stroke="#ff4b6e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <h1 class="hero-title">To My Forever Love</h1>
+        <p style="font-size: 1.2rem; margin-top: 10px; color: #800f2f;">You make every moment special...</p>
+        <a href="#cards" class="btn">Explore My Love 👇</a>
+    </section>
+
+    <!-- Page 2: Flip Cards -->
+    <section id="cards">
+        <h2 class="title">Why You Are So Special</h2>
+        <div class="card-container">
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span>✨</span>
+                        <h3>Your Smile</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>It brightens up even my darkest days instantly. Your laugh is my favorite song.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span>🛡️</span>
+                        <h3>Your Safe Hugs</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>In your arms, the whole world disappears and I feel completely safe and loved.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span>🌟</span>
+                        <h3>Your Kindness</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>The way you care for me and everyone around you shows how pure your heart is.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span>👑</span>
+                        <h3>You Being You</h3>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Just existing as you are makes my world infinitely better. I love everything about you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 3: Gift Box Unwrapping -->
+    <section id="gift">
+        <h2 class="title">A Surprise For You</h2>
+        <p>Tap the gift box to open your surprise!</p>
+        <div class="gift-box" id="giftBox" onclick="openGift()">
+            <div class="gift-lid"></div>
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
+        </div>
+        <div class="gift-content" id="giftContent">
+            <div style="font-size: 3rem;">🧸💖</div>
+            <h3 style="color: var(--primary); margin-bottom: 10px;">A Big Warm Hug!</h3>
+            <p>You have unlocked unlimited warm hugs, kisses, and unconditional affection for the rest of your life!</p>
+        </div>
+    </section>
+
+    <!-- Page 4: Digital Love Letter -->
+    <section id="letter">
+        <h2 class="title">My Heart to Yours</h2>
+        <div class="letter-container">
+            <div class="letter-text">
+                <p><strong>My Dearest,</strong></p><br>
+                <p>I just wanted to take a little moment to remind you of how deeply special you are to me. Words often fall short when I try to describe how much light and joy you bring into my life.</p><br>
+                <p>Thank you for your warmth, your patience, and your endless love. No matter where life takes us, my heart will always belong to you. You are, and always will be, my favorite human forever.</p><br>
+                <p style="text-align: right; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--primary);">Forever Yours ❤️</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 5: Interactive Game -->
+    <section id="game">
+        <h2 class="title">A Quick Question...</h2>
+        <div class="game-box">
+            <h3 style="color: var(--text-dark);">Will you love me forever and ever? 🥺</h3>
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="celebrateLove()">YES! 💖</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">No 😜</button>
+            </div>
+            <p id="gameResponse" style="margin-top: 20px; font-weight: 600; color: var(--primary); display: none;"></p>
+        </div>
+    </section>
+
+    <!-- Page 6: Forever Promise -->
+    <section id="forever">
+        <h2 class="title">You Are My Forever</h2>
+        <div class="pulse-heart">❤️</div>
+        <p style="font-size: 1.3rem; max-width: 500px; text-align: center; margin-bottom: 20px;">
+            My love for you grows with every heartbeat.
+        </p>
+        <div style="background: white; padding: 15px 30px; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <span style="font-weight: 600; color: var(--primary);">Status:</span> Loved unconditionally forever & always.
+        </div>
+    </section>
+
+    <script>
+        // Floating Background Hearts Generator
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = ['❤️', '💖', '💕', '🌸', '✨'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+            heart.style.fontSize = Math.random() * 1.5 + 1 + 'rem';
+            document.getElementById('heart-container').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+        setInterval(createHeart, 400);
+
+        // Gift Box Toggle
+        function openGift() {
+            const box = document.getElementById('giftBox');
+            box.classList.toggle('open');
+            if(box.classList.contains('open')) {
+                confetti({
+                    particleCount: 80,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        // Dodging "No" Button Logic
+        const noBtn = document.getElementById('noBtn');
+        let noBtnRightPos = 0;
+        function moveNoButton() {
+            const x = Math.random() * 160 - 80;
+            const y = Math.random() * 100 - 50;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // Celebrate Yes Click
+        function celebrateLove() {
+            const response = document.getElementById('gameResponse');
+            response.innerText = "I knew it! 🥰 You're stuck with me forever!";
+            response.style.display = "block";
+            
+            // Trigger multi-color confetti explosion
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#ff4b6e', '#ff758c', '#ffccd5', '#ffffff']
+            });
+        }
+    </script>
+</body>
+</html>

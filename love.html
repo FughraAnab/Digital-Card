@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Forever Story 💜 2026</title>
+    <style>
+        :root {
+            --bg-deep: #090214;
+            --bg-card: rgba(26, 11, 46, 0.85);
+            --accent-purple: #9d4edd;
+            --light-purple: #e0aaff;
+            --dark-purple: #240046;
+            --pink-glow: #ff758f;
+            --white: #ffffff;
+            --neon-glow: 0 0 20px rgba(157, 78, 221, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, var(--dark-purple), var(--bg-deep));
+            color: var(--white);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Floating Light Orbs Background */
+        .ambient-orbs {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(157, 78, 221, 0.15);
+            filter: blur(40px);
+            animation: floatOrb 20s infinite alternate ease-in-out;
+        }
+
+        .orb:nth-child(1) { width: 300px; height: 300px; top: -50px; left: -50px; }
+        .orb:nth-child(2) { width: 400px; height: 400px; bottom: -100px; right: -100px; animation-delay: -5s; background: rgba(224, 170, 255, 0.1); }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* Container Card */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 92%;
+            max-width: 440px;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(224, 170, 255, 0.25);
+            border-radius: 28px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), var(--neon-glow);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Pages System */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            color: var(--light-purple);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(224, 170, 255, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 0.98rem;
+            color: #d8b4fe;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* PIN Keypad Styling */
+        .pin-display {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .pin-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 2px solid var(--light-purple);
+            background: transparent;
+            transition: 0.3s;
+        }
+
+        .pin-dot.filled {
+            background: var(--light-purple);
+            box-shadow: 0 0 10px var(--light-purple);
+        }
+
+        .keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        .key-btn {
+            background: rgba(157, 78, 221, 0.1);
+            border: 1px solid rgba(224, 170, 255, 0.3);
+            color: var(--white);
+            font-size: 1.25rem;
+            padding: 14px 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            user-select: none;
+        }
+
+        .key-btn:active {
+            background: var(--accent-purple);
+            transform: scale(0.92);
+        }
+
+        .error-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .error-text {
+            color: var(--pink-glow);
+            font-size: 0.85rem;
+            margin-top: 15px;
+            min-height: 20px;
+        }
+
+        /* Standard Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--accent-purple), #560bad);
+            color: var(--white);
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
+            transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(157, 78, 221, 0.6);
+        }
+
+        /* Memory Card Element */
+        .memory-card {
+            background: rgba(36, 0, 70, 0.5);
+            border-left: 4px solid var(--light-purple);
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 12px 12px 0;
+            text-align: left;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Tic-Tac-Toe Mini Game Styling */
+        .tictactoe-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 240px;
+            margin: 0 auto 20px auto;
+        }
+
+        .ttt-cell {
+            aspect-ratio: 1;
+            background: rgba(36, 0, 70, 0.6);
+            border: 2px solid rgba(157, 78, 221, 0.4);
+            border-radius: 12px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .ttt-cell:hover {
+            border-color: var(--light-purple);
+            background: rgba(157, 78, 221, 0.2);
+        }
+
+        #game-status {
+            font-size: 0.9rem;
+            color: var(--light-purple);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        /* Final Question Choices */
+        .choice-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        #no-btn {
+            background: #3c096c;
+            border: 1px solid rgba(255, 117, 143, 0.3);
+            position: relative;
+            transition: 0.1s ease-out;
+        }
+
+        .heart-pulse {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            animation: pulseAnim 1.5s infinite;
+        }
+
+        @keyframes pulseAnim {
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,117,143,0.4)); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 15px rgba(255,117,143,0.8)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,117,143,0.4)); }
+        }
+
+        .fireworks {
+            font-size: 1.8rem;
+            margin-top: 15px;
+            letter-spacing: 5px;
+            animation: bounceText 1s infinite alternate;
+        }
+
+        @keyframes bounceText {
+            from { transform: translateY(0); }
+            to { transform: translateY(-8px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <div class="container" id="main-container">
+
+        <!-- PAGE 1: Secure Passcode Keypad -->
+        <div class="page active" id="page-1">
+            <div class="heart-pulse">💜</div>
+            <h1>Restricted Access</h1>
+            <p>Enter the magic passcode year to unlock your personal space (Hint: 2026)</p>
+            
+            <div class="pin-display" id="pin-display">
+                <div class="pin-dot" id="dot-0"></div>
+                <div class="pin-dot" id="dot-1"></div>
+                <div class="pin-dot" id="dot-2"></div>
+                <div class="pin-dot" id="dot-3"></div>
+            </div>
+
+            <div class="keypad-grid">
+                <button class="key-btn" onclick="pressKey('1')">1</button>
+                <button class="key-btn" onclick="pressKey('2')">2</button>
+                <button class="key-btn" onclick="pressKey('3')">3</button>
+                <button class="key-btn" onclick="pressKey('4')">4</button>
+                <button class="key-btn" onclick="pressKey('5')">5</button>
+                <button class="key-btn" onclick="pressKey('6')">6</button>
+                <button class="key-btn" onclick="pressKey('7')">7</button>
+                <button class="key-btn" onclick="pressKey('8')">8</button>
+                <button class="key-btn" onclick="pressKey('9')">9</button>
+                <button class="key-btn" onclick="clearPin()" style="font-size:0.85rem;">C</button>
+                <button class="key-btn" onclick="pressKey('0')">0</button>
+                <button class="key-btn" onclick="deletePin()" style="font-size:0.85rem;">⌫</button>
+            </div>
+            <div class="error-text" id="pin-error"></div>
+        </div>
+
+        <!-- PAGE 2: Chapter 1 - The Connection -->
+        <div class="page" id="page-2">
+            <h1>Chapter I</h1>
+            <p>Welcome inside. Every time I look back at our journey, my world feels infinitely brighter and softer.</p>
+            <div class="memory-card">
+                "You are my absolute favorite thought in the morning and my peace at the end of the day."
+            </div>
+            <button class="btn" onclick="nextPage(3)">Next Chapter ✨</button>
+        </div>
+
+        <!-- PAGE 3: Chapter 2 - Little Details -->
+        <div class="page" id="page-3">
+            <h1>Chapter II</h1>
+            <p>It's the small things—your laughter, your quirks, and the way you understand me without words—that make me fall deeper every day.</p>
+            <p style="font-size: 0.9rem; margin-top: -10px;">Before we move forward, let's play a tiny game to prove your love strategy!</p>
+            <button class="btn" onclick="nextPage(4)">Play Love Match 🎮</button>
+        </div>
+
+        <!-- PAGE 4: Mini Game - Love Tic-Tac-Toe -->
+        <div class="page" id="page-4">
+            <h1>Love Tic-Tac-Toe</h1>
+            <p style="margin-bottom: 10px;">Win this quick game to proceed to the grand final question!</p>
+            <div id="game-status">Your turn (💜) vs Computer (🤍)</div>
+            
+            <div class="tictactoe-board" id="ttt-board">
+                <div class="ttt-cell" onclick="makeMove(0)"></div>
+                <div class="ttt-cell" onclick="makeMove(1)"></div>
+                <div class="ttt-cell" onclick="makeMove(2)"></div>
+                <div class="ttt-cell" onclick="makeMove(3)"></div>
+                <div class="ttt-cell" onclick="makeMove(4)"></div>
+                <div class="ttt-cell" onclick="makeMove(5)"></div>
+                <div class="ttt-cell" onclick="makeMove(6)"></div>
+                <div class="ttt-cell" onclick="makeMove(7)"></div>
+                <div class="ttt-cell" onclick="makeMove(8)"></div>
+            </div>
+            <button class="btn" id="ttt-next-btn" style="display:none;" onclick="nextPage(5)">Continue to Question 💫</button>
+        </div>
+
+        <!-- PAGE 5: The Ultimate Question -->
+        <div class="page" id="page-5">
+            <div class="heart-pulse">💖</div>
+            <h1>The Real Question</h1>
+            <p>Through all chapters, moments, and memories... <br><br><b>Do you still love me?</b></p>
+            <div class="choice-group">
+                <button class="btn" onclick="nextPage(6)" style="background: linear-gradient(135deg, #ff758f, #ff4d6d); color: #120822;">Yes, Always! 🥰</button>
+                <button class="btn" id="no-btn" onmouseover="dodgeNoButton()" onclick="dodgeNoButton()">No 🥺</button>
+            </div>
+        </div>
+
+        <!-- PAGE 6: Success / Celebration -->
+        <div class="page" id="page-6">
+            <div class="heart-pulse">👑💜</div>
+            <h1>I Knew It!</h1>
+            <p>My heart chose you then, it chooses you now, and it will choose you through every tomorrow.</p>
+            <div class="fireworks">💜 ✨ 💖 ✨ 💜</div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- PIN KEYPAD SYSTEM ---
+        let currentPin = "";
+        const correctPin = "2026";
+
+        function pressKey(num) {
+            if (currentPin.length < 4) {
+                currentPin += num;
+                updatePinDisplay();
+                if (currentPin.length === 4) {
+                    setTimeout(validatePin, 200);
+                }
+            }
+        }
+
+        function deletePin() {
+            currentPin = currentPin.slice(0, -1);
+            updatePinDisplay();
+        }
+
+        function clearPin() {
+            currentPin = "";
+            updatePinDisplay();
+        }
+
+        function updatePinDisplay() {
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i < currentPin.length) {
+                    dot.classList.add('filled');
+                } else {
+                    dot.classList.remove('filled');
+                }
+            }
+        }
+
+        function validatePin() {
+            if (currentPin === correctPin) {
+                document.getElementById('pin-error').innerText = "";
+                nextPage(2);
+            } else {
+                const container = document.getElementById('main-container');
+                container.classList.add('error-shake');
+                document.getElementById('pin-error').innerText = "Incorrect passcode! Hint: 2026";
+                setTimeout(() => {
+                    container.classList.remove('error-shake');
+                    clearPin();
+                }, 400);
+            }
+        }
+
+        // --- PAGE MANAGEMENT ---
+        function nextPage(pageNumber) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById(`page-${pageNumber}`).classList.add('active');
+            
+            if (pageNumber === 4) {
+                resetTicTacToe();
+            }
+        }
+
+        // --- TIC-TAC-TOE LOVE GAME LOGIC ---
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let isGameActive = true;
+
+        function makeMove(index) {
+            if (board[index] === "" && isGameActive) {
+                board[index] = "💜";
+                renderBoard();
+                
+                if (checkWin("💜")) {
+                    document.getElementById('game-status').innerText = "Yay! You proved your love! 🎉";
+                    document.getElementById('ttt-next-btn').style.display = "inline-block";
+                    isGameActive = false;
+                    return;
+                }
+                
+                if (!board.includes("")) {
+                    document.getElementById('game-status').innerText = "It's a tie! But love always wins. Click below 👇";
+                    document.getElementById('ttt-next-btn').style.display = "inline-block";
+                    isGameActive = false;
+                    return;
+                }
+
+                // AI Easy Move (Computers play '🤍')
+                document.getElementById('game-status').innerText = "Thinking...";
+                setTimeout(() => {
+                    let emptyIndices = board.map((val, idx) => val === "" ? idx : null).filter(val => val !== null);
+                    if (emptyIndices.length > 0 && isGameActive) {
+                        let aiChoice = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+                        board[aiChoice] = "🤍";
+                        renderBoard();
+                        
+                        if (checkWin("🤍")) {
+                            // Even if AI "wins", let them pass anyway to keep it sweet/fun
+                            document.getElementById('game-status').innerText = "Computer won your heart! Advance anyway 💕";
+                            document.getElementById('ttt-next-btn').style.display = "inline-block";
+                            isGameActive = false;
+                        } else {
+                            document.getElementById('game-status').innerText = "Your turn (💜)";
+                        }
+                    }
+                }, 500);
+            }
+        }
+
+        function renderBoard() {
+            const cells = document.querySelectorAll('.ttt-cell');
+            cells.forEach((cell, idx) => {
+                cell.innerText = board[idx];
+            });
+        }
+
+        function checkWin(player) {
+            const wins = [
+                [0,1,2], [3,4,5], [6,7,8], // rows
+                [0,3,6], [1,4,7], [2,5,8], // cols
+                [0,4,8], [2,4,6]          // diagonals
+            ];
+            return wins.some(comb => comb.every(idx => board[idx] === player));
+        }
+
+        function resetTicTacToe() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            isGameActive = true;
+            document.getElementById('game-status').innerText = "Your turn (💜) vs Computer (🤍)";
+            document.getElementById('ttt-next-btn').style.display = "none";
+            renderBoard();
+        }
+
+        // --- DODGE "NO" BUTTON MECHANIC ---
+        function dodgeNoButton() {
+            const noBtn = document.getElementById('no-btn');
+            const randomX = (Math.random() - 0.5) * 180;
+            const randomY = (Math.random() - 0.5) * 100;
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+    </script>
+</body>
+</html>
